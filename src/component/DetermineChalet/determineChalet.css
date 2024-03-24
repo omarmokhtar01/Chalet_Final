@@ -1,0 +1,35 @@
+.form-floating>label {
+    right: 0;
+    color: lightgray;
+}
+.react-datepicker-wrapper{
+    width: 100%;
+}
+
+/* Custom styles for DatePicker */
+.date-design {
+    /* Your custom styles here */
+    width:100%; /* Set a custom width */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 4px; /* Round the corners */
+    padding: 8px; /* Add padding */
+    font-size: 16px; /* Set font size */
+    color: #333; /* Set text color */
+    background-color: #fff; /* Set background color */
+  }
+  
+  /* Style placeholder text */
+  .date-design::placeholder {
+    color: #999; /* Set placeholder text color */
+  }
+  
+  /* Style selected date */
+  .date-design .react-datepicker__input-container input {
+    /* Custom styles for the input field inside the DatePicker */
+    width: 100%; /* Fill the container width */
+    border: none; /* Remove input border */
+    outline: none; /* Remove input outline */
+    background-color: transparent; /* Set input background color */
+    /* Add more styles as needed */
+  }
+  
