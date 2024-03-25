@@ -196,7 +196,7 @@ const Determine = () => {
 </Col>
 
 
-<Col lg={12} xs={12} className="my-3">
+{/* <Col lg={12} xs={12} className="my-3">
           <span style={{fontWeight:'500'}}>تفاصيل اخري </span>
         </Col>
         <Col lg={12} xs={12}>
@@ -207,7 +207,7 @@ const Determine = () => {
           style={{ height: '200px' }}
         />
       </FloatingLabel>
-        </Col>
+        </Col> */}
 
         <Col className='mt-4' style={{display:'flex',justifyContent:'space-between'}}>
         <h6>كود التسجيل</h6>

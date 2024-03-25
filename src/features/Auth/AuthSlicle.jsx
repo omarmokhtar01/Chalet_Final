@@ -6,6 +6,9 @@ const initialState = {
   userLogin:{},
   userOwnerChalet:{},
   isLoading: false,
+  isLoadingOwner: false,
+  isLoadingBroker: false,
+
   error: null,
 }; 
 
@@ -13,9 +16,9 @@ const initialState = {
   try {
     const response = await baseUrl.post(
       'Auth/Authentication_Code_broker',formData);
-    console.log(response);
-    console.log(response.data);
-    return response.data;
+      console.log(response);
+
+    return response;
   } catch (error) {
     return error
   }
@@ -27,8 +30,7 @@ const initialState = {
     const response = await baseUrl.post(
       'Auth/Authentication_Code_chalet',formData);
       console.log(response);
-      console.log(response.data);
-    return response.data;
+    return response;
   } catch (error) {
     return error
   }
@@ -46,31 +48,31 @@ const authSlice = createSlice({
 
 
       .addCase(createLoginUser.pending, (state) => {
-        state.isLoading = true;
+        state.isLoadingBroker = true;
         state.error = null;
       })
       .addCase(createLoginUser.fulfilled, (state, action) => {
         state.userLogin = action.payload;
-        state.isLoading = false;
+        state.isLoadingBroker = false;
         state.error = null;
       })
       .addCase(createLoginUser.rejected, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingBroker = false;
         state.error = action.payload;
       })
 
 
       .addCase(createUserOwnerChalet.pending, (state) => {
-        state.isLoading = true;
+        state.isLoadingOwner = true;
         state.error = null;
       })
       .addCase(createUserOwnerChalet.fulfilled, (state, action) => {
         state.userOwnerChalet = action.payload;
-        state.isLoading = false;
+        state.isLoadingOwner = false;
         state.error = null;
       })
       .addCase(createUserOwnerChalet.rejected, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingOwner = false;
         state.error = action.payload;
       })
  }}

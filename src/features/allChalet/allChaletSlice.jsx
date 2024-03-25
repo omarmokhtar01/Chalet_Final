@@ -7,6 +7,9 @@ const initialState = {
    allBookChalet:[],
    statusBook:[],
    bookChalet:[],
+            oneChalet:{},
+            isLoadingOneChalet:false,
+
     isLoading: false,
     error: null,
   };
@@ -16,7 +19,25 @@ const initialState = {
   const getAllChalet = createAsyncThunk('get/chalet', async (_, thunkAPI) => {
       try {
         const response = await baseUrl.get(
-          'user/Get-Notification'
+          'Chalet/Get'
+        //   , {
+        //     headers: {
+        //         Authorization:` Bearer ${token}` // Include token in the request headers
+        //     }
+        // }
+        );
+          console.log(response);
+        return response;
+      } catch (error) {
+        return error
+      }
+    });
+
+
+    const getOneChaletById = createAsyncThunk('get/chalet/one', async (id, thunkAPI) => {
+      try {
+        const response = await baseUrl.get(
+          `Chalet/get_id?id=${id}`
         //   , {
         //     headers: {
         //         Authorization:` Bearer ${token}` // Include token in the request headers
@@ -49,10 +70,10 @@ const initialState = {
     });
 
 
-  const getStatusBook = createAsyncThunk('get/statusbook', async (_, thunkAPI) => {
+  const getStatusBook = createAsyncThunk('get/statusbook', async (id, thunkAPI) => {
       try {
         const response = await baseUrl.get(
-          'user/Get-Notification'
+          `Bookshalihat/StatusBook?id=${id}`
         //   , {
         //     headers: {
         //         Authorization:` Bearer ${token}` // Include token in the request headers
@@ -163,6 +184,21 @@ const initialState = {
               state.isLoading = false;
               state.error = action.payload;
             })
+
+            
+            .addCase(getOneChaletById.pending, (state) => {
+              state.isLoadingOneChalet = true;
+              state.error = null;
+            })
+            .addCase(getOneChaletById.fulfilled, (state, action) => {
+              state.oneChalet = action.payload;
+              state.isLoadingOneChalet = false;
+              state.error = null;
+            })
+            .addCase(getOneChaletById.rejected, (state, action) => {
+              state.isLoadingOneChalet = false;
+              state.error = action.payload;
+            })
             
   
   
@@ -170,6 +206,6 @@ const initialState = {
 
             }}
             );
-      export { getAllChalet , getAllBookChalet , getStatusBook ,bookOneChalet };
+      export { getAllChalet , getAllBookChalet , getStatusBook ,bookOneChalet,getOneChaletById };
       
       export default allChaletSlice.reducer;

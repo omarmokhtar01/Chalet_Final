@@ -8,17 +8,34 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import ar from "date-fns/locale/ar"; // Import the Arabic locale from date-fns
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import MyFooter from "../Footer/MyFooter";
+// import { getOneChaletById } from "../../features/allChalet/allChaletSlice";
+// import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { bookOneChalet } from '../../features/allChalet/allChaletSlice';
 
 const ViewChalet = () => {
 
-  //const dispatch = useDispatch()
+  // const dispatch = useDispatch()
+  const { id } = useParams();
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [text, setText] = useState("");
 
+  const handleChangeName = (e) => {
+   setName(e.target.value);
+  };
+  const handleChangePhone = (e) => {
+    setPhone(e.target.value);
+   };
+   const handleChangeTextArea = (e) => {
+    setText(e.target.value);
+   };
   const [selectedDate1, setSelectedDate1] = useState(null); // State for first DatePicker
   const [selectedDate2, setSelectedDate2] = useState(null); // State for second DatePicker
 
@@ -40,15 +57,25 @@ const ViewChalet = () => {
   };
 
   
-  const getStatusBook = useSelector((state) => state.AllChalet.statusBook);
-  const isLoading = useSelector((state) => state.AllChalet.isLoading);
+  const getStatusBook = useSelector((state) => state.AllChalet.oneChalet);
+  const isLoading = useSelector((state) => state.AllChalet.isLoadingOneChalet);
  
-  console.log(getStatusBook)
+
+  const statusBook = useSelector((state) => state.AllChalet.statusBook);
+
+  // useEffect(()=>{
+  //  dispatch(getOneChaletById(id))
+  // },[dispatch])
+
+  // useEffect(()=>{
+  //  dispatch(getStatusBook(id))
+  // },[dispatch])
+
 
   // getStatusBook.title
 // getStatusBook.price
 // getStatusBook.description
-getStatusBook.image_array
+// getStatusBook.image_array
 // getStatusBook.Image_OwnerChalet
 // getStatusBook.name_OwnerChalet
 // getStatusBook.phone_OwnerChalet
@@ -58,26 +85,41 @@ getStatusBook.image_array
 // getStatusBook.image_area
 // getStatusBook.sub_description_area
 
-getStatusBook.Property_type
-getStatusBook.Display_type
-getStatusBook.space
-getStatusBook.number_rooms
-getStatusBook.Furnishing
-getStatusBook.Bathroom
+// getStatusBook.Property_type
+// getStatusBook.Display_type
+// getStatusBook.space
+// getStatusBook.number_rooms
+// getStatusBook.Furnishing
+// getStatusBook.Bathroom
 // getStatusBook.Registration_code
-getStatusBook.days
-
+// getStatusBook.days
+// const handleSubmit = (e) => {
+//   e.preventDefault();
+//   const formData = {
+//    name: name,
+//    date_arrival: selectedDate1,
+//    Departure_Date: selectedDate2,
+//     phone : phone,
+//     other_details:text
+//   };
+//   dispatch(bookOneChalet(formData));
+// };
   return (
     <>
       <Container>
         <MyNavbar />
         <Row>
-          <Col className=" my-3" lg={12}>
+          <Col className=" my-3" lg={12} style={{display:'flex',justifyContent:'space-around'}}>
             <span style={{ fontWeight: "700" }}>
               
               شالية رقم <span style={{ color: "#547AFF" }}>( 1 )</span>
 {/* {getStatusBook.title} */}
 
+            </span>
+
+            <span>
+              حالة الشالية: 
+              {/* {statusBook} */}
             </span>
           </Col>
 
@@ -330,12 +372,32 @@ getStatusBook.days
           </Col>
 
           <Row>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
-        </Col>
+{/* {
+  getStatusBook && getStatusBook.days ? (
+    getStatusBook.days.map((item,index)=>{
+return( */}
+  <Col lg={2} xs={4} md={2} className="mt-4" 
+  // key={index}
+  >
+  <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
+    
+  {/* <span>{item}</span> */}
+  <span>10</span>
+    <span>يونيو</span>
+
+  </div>
+  </Col>
+{/* )
+
+    })
+  ):null
+} */}
+       
+
+
+       
+
+ {/*
         <Col lg={2} xs={4} md={2} className="mt-4">
           <div  className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
             <span>10</span>
@@ -468,88 +530,96 @@ getStatusBook.days
             <span>10</span>
             <span>يونيو</span>
           </div>
-        </Col>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
+        </Col> */}
+       
+       
+      </Row>
+      <Col lg={12} xs={12} className="my-3">
+          <span style={{fontWeight:'500'}}>تحديد المدة</span>
+          <Col lg={12} xs={12}>
+          <Row>
+          <Col lg={6} style={{marginTop:'13px'}} >
+
+          <DatePicker 
+      dateFormat="dd/MM/yyyy"
+      locale={ar} // Set the locale to Arabic
+      placeholderText="تاريخ الوصول" // Use placeholderText prop for placeholder
+      className='date-design'
+      minDate={new Date()}
+      selected={selectedDate1} // Pass the selected date state
+
+      
+      onChange={handleDateChange1} // Handle date change
+      
+      value={selectedDate1 ? formatDate(selectedDate1) : ''} // Displayed value
+
+      />
+
+          </Col>
+          <Col lg={6} style={{marginTop:'13px'}}>
+
+          <DatePicker 
+      selected={selectedDate2}
+      onChange={handleDateChange2}
+      dateFormat="dd/MM/yyyy"
+      locale="ar" // Set the locale to Arabic directly
+      placeholderText="تاريخ المغادره"
+      className="date-design"
+      minDate={tomorrow} // Set the minimum selectable date to tomorrow
+      value={selectedDate2 ? formatDate(selectedDate2) : ''} // Displayed value
+
+    />
+
+          </Col>
+
+          </Row>
+          </Col>
+         
         </Col>
 
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
+        <Col lg={12} xs={12} className="my-3">
+          <span style={{fontWeight:'600'}}>تفاصيل المستأجر </span>
         </Col>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
+
+        <Col lg={12}>
+  <Row>
+    <Col lg={6}>
+      <Form.Group className="mb-3" controlId="formName">
+        <Form.Label style={{fontWeight:'500'}}>الأسم</Form.Label>
+        <Form.Control 
+        value={name} // Use state variable here
+  onChange={(e) => handleChangeName(e)}
+        type="text" placeholder="الأسم" />
+      </Form.Group>
+    </Col>
+    <Col lg={6}>
+      <Form.Group className="mb-3" controlId="formPhone">
+        <Form.Label style={{fontWeight:'500'}}>رقم الهاتف</Form.Label>
+        <Form.Control value={phone} // Use state variable here
+  onChange={(e) => handleChangePhone(e)}
+         type="tel" placeholder="رقم الهاتف"  style={{textAlignLast:'end'}}/>
+      </Form.Group>
+    </Col>
+  </Row>
+</Col>
+<Col lg={12} xs={12} className="my-3">
+          <span style={{fontWeight:'500'}}>تفاصيل اخري </span>
         </Col>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div  className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#58CD55', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
+        <Col lg={12} xs={12}>
+        <FloatingLabel controlId="floatingTextarea2" label="تفاصيل اخري " style={{right:'0px'}}>
+        <Form.Control
+          as="textarea"
+          placeholder="Leave a comment here"
+          style={{ height: '200px' }}
+          onChange={(e)=>handleChangeTextArea(e)}
+        />
+      </FloatingLabel>
         </Col>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
+<Col lg={12} style={{display:'flex',justifyContent:'center'}}>
+        <Button 
+        // onClick={handleSubmit}
+        style={{backgroundColor:'#547AFF',color:'white',width:'350px',marginTop:'20px'}}>حجز الأن</Button>
         </Col>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
-        </Col>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
-        </Col>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
-        </Col>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
-        </Col>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
-        </Col>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%",border:'1px solid black',  display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'black' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
-        </Col>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
-        </Col>
-        <Col lg={2} xs={4} md={2} className="mt-4">
-          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-            <span>10</span>
-            <span>يونيو</span>
-          </div>
-        </Col>
-      </Row>
-          
         </Row>
       </Container>
       <MyFooter />

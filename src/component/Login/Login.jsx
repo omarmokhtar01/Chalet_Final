@@ -3,7 +3,7 @@ import loginImg from "../../assets/images/login.svg";
 import './Login.css'
 import { createLoginUser, createUserOwnerChalet } from "../../features/Auth/AuthSlicle";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Login = () => {
 
@@ -35,11 +35,48 @@ const Login = () => {
 
   const resOwner = useSelector((state) => state.auth.userOwnerChalet);
 
-  const isLoadingOwner = useSelector((state) => state.auth.isLoading);
+  const isLoadingOwner = useSelector((state) => state.auth.isLoadingOwner);
   const errorOwner = useSelector((state) => state.auth.error);
 
- console.log(resOwner);
+  const resBroker = useSelector((state) => state.auth.userLogin)
+  const isLoadingBroker = useSelector((state) => state.auth.isLoadingBroker);
 
+
+useEffect(()=>{
+  if (isLoadingOwner===false) {
+    if (resOwner && resOwner.data) {
+        console.log(resOwner.data);
+        localStorage.setItem("owner", JSON.stringify(resOwner.data))
+
+        setTimeout(() => {
+        window.location.href="/"
+      }, 1000);
+
+      }else{
+        console.log("no data available");
+      }
+  }
+
+
+
+},[dispatch,resOwner,isLoadingOwner])
+
+
+
+
+useEffect(()=>{
+  if (isLoadingBroker===false) {
+    if (resBroker && resBroker.data) {
+        console.log(resBroker.data);
+        localStorage.setItem("broker", JSON.stringify(resBroker.data))
+        setTimeout(() => {
+          window.location.href="/"
+        }, 1000);
+      }else{
+        console.log("no data available");
+      }
+  }
+},[dispatch,resBroker,isLoadingBroker])
   //  console.log(res.data.token)
   // if (res && res.data) {
   //   console.log(res.data.token);
@@ -48,9 +85,9 @@ const Login = () => {
   // console.log(res.success);
 
   //save data auth broker
-  const OnSubmit = async (e) => {
+  const OnSubmitBroker = async (e) => {
     e.preventDefault();
-   
+    // Assuming dispatch is a function available in your component
     await dispatch(
       createLoginUser({
         Registration_code
@@ -58,19 +95,30 @@ const Login = () => {
     );
   };
 
+  const OnSubmitOwner = async (e) => {
+    e.preventDefault();
+    // Assuming dispatch is a function available in your component
+    await dispatch(
+      createUserOwnerChalet({
+        Registration_code
+      })
+    );
+  };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (selectedOption === 'option1') {
+      OnSubmitBroker(e);
+    } else if (selectedOption === 'option2') {
+      OnSubmitOwner(e);
+    }
+  };
+  const [selectedOption, setSelectedOption] = useState('option1');
 
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
-   //save data owner chalet
-  // const OnSubmit = async (e) => {
-  //   e.preventDefault();
-   
-  //   await dispatch(
-  //     createUserOwnerChalet({
-  //       Registration_code
-  //     })
-  //   );
-  // };
 
 
   return (
@@ -89,8 +137,26 @@ const Login = () => {
                   style={{textAlignLast:'start',borderRadius:'20px',backgroundColor:'rgb(249 249 249 / 41%)'}}/>
 
                 <Col xs={12} lg={12}>
-                    <Button className='w-100'    onClick={(e) => OnSubmit(e)}
-                    style={{backgroundColor:'#547AFF',borderRadius:'20px'}}>تسجيل الدخول</Button>
+                <Form onSubmit={handleSubmit}>
+      <Form.Check
+        type="radio"
+        label="سمسار"
+        name="radioGroup"
+        value="option1"
+        checked={selectedOption === "option1"}
+        onChange={handleOptionChange}
+      />
+      <Form.Check
+        type="radio"
+        label="مالك"
+        name="radioGroup"
+        value="option2"
+        checked={selectedOption === "option2"}
+        onChange={handleOptionChange}
+      />
+      <Button className='w-100 mt-2' type="submit">تسجيل الدخول</Button>
+    </Form>
+                    {/* style={{backgroundColor:'#547AFF',borderRadius:'20px'}}>تسجيل الدخول</Button> */}
                 </Col>
 
             </Col>
