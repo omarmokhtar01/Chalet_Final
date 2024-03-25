@@ -15,7 +15,7 @@ const initialState = {
  const createLoginUser = createAsyncThunk('auth/login', async (formData, thunkAPI) => {
   try {
     const response = await baseUrl.post(
-      'Auth/Authentication_Code_broker',formData);
+      'api/Auth/Authentication_Code_broker',formData);
       console.log(response);
 
     return response;
@@ -28,7 +28,7 @@ const initialState = {
  const createUserOwnerChalet = createAsyncThunk('auth/owner', async (formData, thunkAPI) => {
   try {
     const response = await baseUrl.post(
-      'Auth/Authentication_Code_chalet',formData);
+      'api/Auth/Authentication_Code_chalet',formData);
       console.log(response);
     return response;
   } catch (error) {

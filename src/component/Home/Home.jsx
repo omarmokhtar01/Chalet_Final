@@ -56,12 +56,18 @@ const dispatch = useDispatch()
 
   return (
     <>
+    
       <Container>
         <MyNavbar />
         <div style={{ display: "flex", justifyContent: "space-between", marginTop:'50px'}}>
-          <span style={{fontSize:'18px',fontWeight:'500'}}>الشاليهات المتاحة الان <span  style={{color:'#547AFF'}}>( ايجار )</span></span>
-          <span style={{color:'#547AFF',cursor:'pointer'}}>عرض الكل</span>
-
+        {
+          ownerData.length <=0 && brokerData.length <=0 ? null:(
+            <>
+            <span style={{fontSize:'18px',fontWeight:'500'}}>الشاليهات المتاحة الان 
+          <span  style={{color:'#547AFF'}}>( ايجار )</span></span>
+            </>
+          )
+        }
         </div>
         <Row>
           {
@@ -621,6 +627,18 @@ return(
         
 
         </Row> */}
+        {
+          ownerData.length <=0 && brokerData.length <=0 ? (
+          <div style={{height:'360px',textAlign:'center'}}>
+            <Row>
+              <Col>
+              <span style={{fontWeight:'700',fontSize:'50px'}}>لا يوجد بيانات</span>
+              </Col>
+            </Row>
+           
+          </div>
+          ):null
+        }
       </Container>
       <MyFooter/>
 

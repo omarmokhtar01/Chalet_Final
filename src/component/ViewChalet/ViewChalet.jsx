@@ -3,6 +3,7 @@ import MyNavbar from "../Navbar/MyNavbar";
 import {Container,Row, Col, Form,FloatingLabel,Button,Table,} from "react-bootstrap";
 import { FaRegCopy, FaWhatsapp } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
+import toast, { Toaster } from 'react-hot-toast';
 
 import DatePicker from "react-datepicker";
 
@@ -14,19 +15,17 @@ import { IoMail } from "react-icons/io5";
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import MyFooter from "../Footer/MyFooter";
-// import { getOneChaletById } from "../../features/allChalet/allChaletSlice";
-// import { useDispatch } from 'react-redux';
+import { getOneChaletById } from "../../features/allChalet/allChaletSlice";
 import { useParams } from 'react-router-dom';
 import { bookOneChalet } from '../../features/allChalet/allChaletSlice';
 
 const ViewChalet = () => {
 
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const { id } = useParams();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [text, setText] = useState("");
-
   const handleChangeName = (e) => {
    setName(e.target.value);
   };
@@ -63,9 +62,9 @@ const ViewChalet = () => {
 
   const statusBook = useSelector((state) => state.AllChalet.statusBook);
 
-  // useEffect(()=>{
-  //  dispatch(getOneChaletById(id))
-  // },[dispatch])
+  useEffect(()=>{
+   dispatch(getOneChaletById(id))
+  },[dispatch])
 
   // useEffect(()=>{
   //  dispatch(getStatusBook(id))
@@ -93,17 +92,46 @@ const ViewChalet = () => {
 // getStatusBook.Bathroom
 // getStatusBook.Registration_code
 // getStatusBook.days
-// const handleSubmit = (e) => {
-//   e.preventDefault();
-//   const formData = {
-//    name: name,
-//    date_arrival: selectedDate1,
-//    Departure_Date: selectedDate2,
-//     phone : phone,
-//     other_details:text
-//   };
-//   dispatch(bookOneChalet(formData));
-// };
+let idInteger;
+if (id && !isNaN(id)) {
+  idInteger = parseInt(id, 10);
+}
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = {
+    name: name,
+    date_arrival: selectedDate1,
+    Departure_Date: selectedDate2,
+    phone: phone,
+    other_details: text
+  };
+
+  if (!formData.name) {
+   return toast.error("الأسم مطلوب")
+  }
+  if (!formData.phone) {
+    return toast.error("رقم الهاتف مطلوب")
+   }
+   if (!formData.date_arrival) {
+    return toast.error("تاريخ الوصول مطلوب")
+   }
+   if (!formData.Departure_Date) {
+     return toast.error("تاريخ المغادرة مطلوب")
+    }
+  
+  // Assuming dispatch is an async function that handles the form data
+  try {
+    await dispatch(bookOneChalet(formData, idInteger));
+    setTimeout(() => {
+    }, 1000);
+    // Handle success if needed
+  } catch (error) {
+
+    console.error('Error submitting form:', error);
+    // Handle error (e.g., show error message to the user)
+  }
+};
   return (
     <>
       <Container>
@@ -117,13 +145,10 @@ const ViewChalet = () => {
 
             </span>
 
-            <span>
-              حالة الشالية: 
-              {/* {statusBook} */}
-            </span>
+           
           </Col>
 
-          <Col lg={6} xs={12} md={12} sm={12} className="my-1">
+          <Col lg={12} xs={12} md={12} sm={12} className="my-1">
             <img
               src="https://archgalleries.com/wp-content/uploads/2020/03/%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D8%B4%D8%A7%D9%84%D9%8A%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%B9%D8%B2%D9%8A%D8%B2%D9%8A%D8%A9-1.jpg"
               style={{ width: "100%", height: "300px", borderRadius: "10px" }}
@@ -131,7 +156,7 @@ const ViewChalet = () => {
             />
           </Col>
 
-          <Col
+          {/* <Col
             xs={12}
             lg={6}
             md={12}
@@ -143,7 +168,7 @@ const ViewChalet = () => {
               style={{ width: "100%", height: "300px", borderRadius: "10px" }}
               alt="Image"
             />
-          </Col>
+          </Col> */}
 
           <Col lg={12}>
             <Row>
@@ -617,11 +642,13 @@ return( */}
         </Col>
 <Col lg={12} style={{display:'flex',justifyContent:'center'}}>
         <Button 
-        // onClick={handleSubmit}
+        onClick={handleSubmit}
         style={{backgroundColor:'#547AFF',color:'white',width:'350px',marginTop:'20px'}}>حجز الأن</Button>
         </Col>
         </Row>
       </Container>
+      <Toaster />
+
       <MyFooter />
     </>
   );

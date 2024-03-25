@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import baseUrl from "../../Api/baseURL";
+import toast, { Toaster } from 'react-hot-toast';
 
 const initialState = {
    allCahlet:[],
@@ -19,7 +20,7 @@ const initialState = {
   const getAllChalet = createAsyncThunk('get/chalet', async (_, thunkAPI) => {
       try {
         const response = await baseUrl.get(
-          'Chalet/Get'
+          'api/Chalet/Get'
         //   , {
         //     headers: {
         //         Authorization:` Bearer ${token}` // Include token in the request headers
@@ -37,7 +38,7 @@ const initialState = {
     const getOneChaletById = createAsyncThunk('get/chalet/one', async (id, thunkAPI) => {
       try {
         const response = await baseUrl.get(
-          `Chalet/get_id?id=${id}`
+          `DashboardApi/Broker/Get_id?id=${id}`
         //   , {
         //     headers: {
         //         Authorization:` Bearer ${token}` // Include token in the request headers
@@ -73,7 +74,7 @@ const initialState = {
   const getStatusBook = createAsyncThunk('get/statusbook', async (id, thunkAPI) => {
       try {
         const response = await baseUrl.get(
-          `Bookshalihat/StatusBook?id=${id}`
+          `api/Bookshalihat/StatusBook?id=${id}`
         //   , {
         //     headers: {
         //         Authorization:` Bearer ${token}` // Include token in the request headers
@@ -91,10 +92,10 @@ const initialState = {
 
   
   
-    const bookOneChalet = createAsyncThunk(  'book/onechalet', async (formData , thunkAPI) => {
+    const bookOneChalet = createAsyncThunk(  'book/onechalet', async (formData,id , thunkAPI) => {
       try {
         const response = await baseUrl.post(
-          'Bookshalihat/store',
+          `api/Bookshalihat/store?id=${871711312881}`,
           formData,
           {
             params: {
@@ -179,10 +180,14 @@ const initialState = {
               state.bookChalet = action.payload;
               state.isLoading = false;
               state.error = null;
+              toast.success('تم حجز الشالية بنجاح')
+
             })
             .addCase(bookOneChalet.rejected, (state, action) => {
               state.isLoading = false;
               state.error = action.payload;
+              toast.error("حدث خطأ في الحجز")
+
             })
 
             
