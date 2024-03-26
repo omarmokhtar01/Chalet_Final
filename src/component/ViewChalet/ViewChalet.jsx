@@ -154,6 +154,17 @@ if ( !brokerDataStr ) {
 
   }, 1000);
 }
+const [copiedValue, setCopiedValue] = useState("");
+const handleCopyValue = () => {
+  const valueToCopy = getStatusBook.data.Registration_code;
+  navigator.clipboard.writeText(valueToCopy);
+  setCopiedValue(valueToCopy);
+
+  // Hide the message after 2 seconds
+  setTimeout(() => {
+    setCopiedValue("");
+  }, 2000);
+};
 
   return (
     <>
@@ -214,20 +225,19 @@ if ( !brokerDataStr ) {
                         انها فرضه جيده ايضا للاستثمار . */}
                       </span>
                     </div>
-                    <div
-                      style={{ display: "flex", justifyContent: "space-between" }}
-                    >
-                      <h5>
-                        كود التسجيل:
-                         {getStatusBook.data.Registration_code}
-                      </h5>
-                      <div style={{ color: "#547AFF",cursor:'pointer' }}>
-                        <FaRegCopy />
-                        <span style={{ fontWeight: "700", marginRight: "5px" }}>
-                          نسخ
-                        </span>
-                      </div>
-                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <h5>
+        كود التسجيل: {getStatusBook.data.Registration_code}
+      </h5>
+      <div
+        style={{ color: "#547AFF", cursor: "pointer" }}
+        onClick={handleCopyValue}
+      >
+        <FaRegCopy />
+        <span style={{ fontWeight: "700", marginRight: "5px" }}>نسخ</span>
+      </div>
+      {copiedValue && <span style={{ color: "green" }}>تم النسخ!</span>}
+    </div>
                     <div className="my-3">
                       <h6>معلومات عن العقار</h6>
                       <Table responsive="md">
