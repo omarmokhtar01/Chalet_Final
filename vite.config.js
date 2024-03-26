@@ -9,5 +9,5 @@ export default defineConfig({
     }
   },
   plugins: [react()],
-  base:"/Chalet_Final/"
+  // base:"/Chalet_Final/"
 }) 
