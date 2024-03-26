@@ -329,9 +329,12 @@ const handleCopyValue = () => {
                       </div>
                       <Row>
                       <div
-                        style={{ display: "flex", justifyContent: "space-around" , gap:'3px' }}
+                        
+                        className="responsive-design"
+                        style={{display:'flex'}}
+
                       >
-                        <Col xs={4}>
+                        <Col md={4} sm={4} xs={4}>
                         <a href={getStatusBook.data.phone_OwnerChalet} style={{textDecoration:'none'}}>
                         <div
                           style={{
@@ -352,7 +355,7 @@ const handleCopyValue = () => {
                         </div>
                         </a>
                         </Col>
-                        <Col xs={4}>
+                        <Col md={4} sm={4} xs={4}>
     <a href={getStatusBook.data.email_OwnerChalet} style={{textDecoration:'none'}}>
                         <div
                           style={{
@@ -374,7 +377,8 @@ const handleCopyValue = () => {
                         </div>
      </a>
      </Col>
-                        <Col xs={4}>
+     
+                        <Col md={4} sm={4} xs={4}>
     <a href={getStatusBook.data.whatsapp_OwnerChalet} style={{textDecoration:'none'}}>
                         <div
                           style={{
