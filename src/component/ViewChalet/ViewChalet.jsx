@@ -327,16 +327,18 @@ const handleCopyValue = () => {
     {getStatusBook.data.name_OwnerChalet}
                         </h6>
                       </div>
+                      <Row>
                       <div
                         style={{ display: "flex", justifyContent: "space-around" , gap:'3px' }}
                       >
+                        <Col xs={4}>
                         <a href={getStatusBook.data.phone_OwnerChalet} style={{textDecoration:'none'}}>
                         <div
                           style={{
                             color: "rgb(84, 122, 255)",
                             border: "1px solid rgb(84, 122, 255)",
                             height: "50px",
-                            width: "150px",
+                            width: "auto",
                             borderRadius: "10px",
                             display: "flex",
                             justifyContent: "center",
@@ -349,19 +351,21 @@ const handleCopyValue = () => {
                           <span style={{ fontSize: "14px" }}>تواصل عبر الهاتف</span>
                         </div>
                         </a>
-    
+                        </Col>
+                        <Col xs={4}>
     <a href={getStatusBook.data.email_OwnerChalet} style={{textDecoration:'none'}}>
                         <div
                           style={{
                             color: "rgb(84, 122, 255)",
                             border: "1px solid rgb(84, 122, 255)",
                             height: "50px",
-                            width: "150px",
+                            width: "auto",
                             borderRadius: "10px",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
                             cursor: "pointer",
+                            margin:'0px 4px'
                           }}
                         >
                           <IoMail size={20} />
@@ -369,14 +373,15 @@ const handleCopyValue = () => {
                           <span style={{ fontSize: "14px" }}>تواصل عبر البريد</span>
                         </div>
      </a>
-    
+     </Col>
+                        <Col xs={4}>
     <a href={getStatusBook.data.whatsapp_OwnerChalet} style={{textDecoration:'none'}}>
                         <div
                           style={{
                             color: "rgb(84, 122, 255)",
                             border: "1px solid rgb(84, 122, 255)",
                             height: "50px",
-                            width: "150px",
+                            width: "auto",
                             borderRadius: "10px",
                             display: "flex",
                             justifyContent: "center",
@@ -388,8 +393,9 @@ const handleCopyValue = () => {
     
                           <span style={{ fontSize: "14px" }}>تواصل عبر واتساب</span>
                         </div>
-                         </a>
+                         </a></Col>
                       </div>
+                      </Row>
                     </div>
     
                     <div
