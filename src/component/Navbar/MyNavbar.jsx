@@ -8,7 +8,7 @@ function MyNavbar() {
     <Navbar collapseOnSelect expand="lg">
       <Container>
       <Navbar.Brand >
-        <Link to='/'>
+        <Link to='/home'>
         <img src={logo} alt="Logo" />
         </Link>
         </Navbar.Brand>
