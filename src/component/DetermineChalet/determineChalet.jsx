@@ -8,12 +8,24 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import ar from 'date-fns/locale/ar'; // Import the Arabic locale from date-fns
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MyFooter from '../Footer/MyFooter';
 import { useDispatch , useSelector} from 'react-redux';
 import { bookOneChalet } from '../../features/allChalet/allChaletSlice';
 
 const Determine = () => {
+  useEffect(()=>{
+    const ownerLocalStorage = localStorage.getItem('owner')
+const brokerLocalStorage = localStorage.getItem('broker')
+if (ownerLocalStorage&& brokerLocalStorage&& ownerLocalStorage.length <=0 && brokerLocalStorage.length <=0) {
+window.location.href="/login"
+}
+},[])
+//   const ownerLocalStorage = localStorage.getItem('owner')
+// const brokerLocalStorage = localStorage.getItem('broker')
+// if ( ownerLocalStorage.length <=0 && brokerLocalStorage.length) {
+//   window.location.href="/login"
+// }
   const dispatch = useDispatch();
 
 

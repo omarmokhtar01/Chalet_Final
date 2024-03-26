@@ -10,6 +10,20 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 const Home = () => {
+  useEffect(()=>{
+    const ownerLocalStorage = localStorage.getItem('owner')
+const brokerLocalStorage = localStorage.getItem('broker')
+if (ownerLocalStorage&& brokerLocalStorage&& ownerLocalStorage.length <=0 && brokerLocalStorage.length <=0) {
+window.location.href="/login"
+}
+},[])
+//   const ownerLocalStorage = localStorage.getItem('owner')
+// const brokerLocalStorage = localStorage.getItem('broker')
+
+// if ( ownerLocalStorage.length <=0 && brokerLocalStorage.length) {
+//   window.location.href="/login"
+// }
+
 const dispatch = useDispatch()
 
 

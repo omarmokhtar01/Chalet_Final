@@ -4,9 +4,12 @@ import MyFooter from "./component/Footer/MyFooter";
 import Determine from "./component/DetermineChalet/determineChalet";
 import Login from "./component/Login/Login";
 import ViewChalet from "./component/ViewChalet/ViewChalet";
+import { useEffect } from "react";
 
 
 function App() {
+
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -14,9 +17,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/determine-chalet" element={<Determine />} />
           <Route path="/view-chalet/:id" element={<ViewChalet />} />
-
           <Route path="/login" element={<Login />} />
-
           </Routes>
       </BrowserRouter>
     </div>

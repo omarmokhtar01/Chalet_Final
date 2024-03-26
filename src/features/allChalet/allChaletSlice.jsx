@@ -37,13 +37,18 @@ const initialState = {
 
     const getOneChaletById = createAsyncThunk('get/chalet/one', async (id, thunkAPI) => {
       try {
-        const response = await baseUrl.get(
-          `DashboardApi/Broker/Get_id?id=${id}`
-        //   , {
-        //     headers: {
-        //         Authorization:` Bearer ${token}` // Include token in the request headers
-        //     }
-        // }
+        const response = await baseUrl.post(
+          `api/Broker/Get_ChaletBroker_id?id=${id}`
+          ,{
+            // Add headers for authorization or other required headers
+            headers: {
+              'Content-Type': 'application/json', // Example content type header
+              'Access-Control-Allow-Origin': '*',
+              'Origin': 'http://localhost:5173',
+              
+              
+            },
+          }
         );
           console.log(response);
         return response;

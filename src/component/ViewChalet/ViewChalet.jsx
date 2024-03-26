@@ -20,7 +20,18 @@ import { useParams } from 'react-router-dom';
 import { bookOneChalet } from '../../features/allChalet/allChaletSlice';
 
 const ViewChalet = () => {
-
+//   useEffect(()=>{
+//     const ownerLocalStorage = localStorage.getItem('owner')
+// const brokerLocalStorage = localStorage.getItem('broker')
+// if (ownerLocalStorage&& brokerLocalStorage&& ownerLocalStorage.length <=0 && brokerLocalStorage.length <=0) {
+// window.location.href="/login"
+// }
+// },[])
+//   const ownerLocalStorage = localStorage.getItem('owner')
+// const brokerLocalStorage = localStorage.getItem('broker')
+// if ( ownerLocalStorage.length <=0 && brokerLocalStorage.length) {
+//   window.location.href="/login"
+// }
   const dispatch = useDispatch()
   const { id } = useParams();
   const [name, setName] = useState("");
@@ -60,8 +71,7 @@ const ViewChalet = () => {
   const isLoading = useSelector((state) => state.AllChalet.isLoadingOneChalet);
  
 
-  const statusBook = useSelector((state) => state.AllChalet.statusBook);
-
+console.log(getStatusBook);
   useEffect(()=>{
    dispatch(getOneChaletById(id))
   },[dispatch])
