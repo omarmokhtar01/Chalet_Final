@@ -150,7 +150,7 @@ const brokerDataStr = localStorage.getItem("broker");
 if ( !ownerLocalStorage ) {
   
   setTimeout(() => {
-    window.location.href="/login"
+    window.location.href="/"
 
   }, 1000);
 }

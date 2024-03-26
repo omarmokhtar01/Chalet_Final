@@ -91,7 +91,7 @@ useEffect(()=>{
         }
         localStorage.setItem("broker", JSON.stringify(resBroker.data))
         setTimeout(() => {
-          window.location.href="/"
+          window.location.href="/home"
         }, 1000);
       }else{
         console.log("no data available");

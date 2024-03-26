@@ -18,7 +18,7 @@ const Determine = () => {
     const ownerLocalStorage = localStorage.getItem('owner')
 const brokerLocalStorage = localStorage.getItem('broker')
 if (ownerLocalStorage&& brokerLocalStorage&& ownerLocalStorage.length <=0 && brokerLocalStorage.length <=0) {
-window.location.href="/login"
+window.location.href="/"
 }
 },[])
 //   const ownerLocalStorage = localStorage.getItem('owner')

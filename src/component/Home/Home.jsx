@@ -15,7 +15,7 @@ const Home = () => {
   if ( !brokerDataStr ) {
   
     setTimeout(() => {
-      window.location.href="/login"
+      window.location.href="/"
   
     }, 500);
   }
