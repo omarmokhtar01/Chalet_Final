@@ -5,6 +5,7 @@ import Determine from "./component/DetermineChalet/determineChalet";
 import Login from "./component/Login/Login";
 import ViewChalet from "./component/ViewChalet/ViewChalet";
 import { useEffect } from "react";
+import ViewChaletOwner from "./component/ViewChalet/ViewChaletOwner";
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/determine-chalet" element={<Determine />} />
           <Route path="/view-chalet/:id" element={<ViewChalet />} />
+          <Route path="/view-chalet-owner/:id" element={<ViewChaletOwner />} />
+
           <Route path="/login" element={<Login />} />
           </Routes>
       </BrowserRouter>

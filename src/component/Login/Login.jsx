@@ -31,6 +31,7 @@ const Login = () => {
   // console.log(res);
 
 
+  const ownerLocalStorage = localStorage.getItem('owner')
 
 
   const resOwner = useSelector((state) => state.auth.userOwnerChalet);
@@ -41,16 +42,26 @@ const Login = () => {
   const resBroker = useSelector((state) => state.auth.userLogin)
   const isLoadingBroker = useSelector((state) => state.auth.isLoadingBroker);
 
-
+  const ownerDataStr =  localStorage.getItem("owner")
+  const brokerDataStr = localStorage.getItem("broker")
 
 useEffect(()=>{
   if (isLoadingOwner===false) {
     if (resOwner && resOwner.data) {
         console.log(resOwner.data);
+        if (ownerDataStr || brokerDataStr) {
+          // Data exists, so perform removal
+          if (ownerDataStr) {
+              localStorage.removeItem("owner"); // Remove owner data from localStorage
+          }
+          if (brokerDataStr) {
+              localStorage.removeItem("broker"); // Remove broker data from localStorage
+          }
+        }
         localStorage.setItem("owner", JSON.stringify(resOwner.data))
 
         setTimeout(() => {
-        window.location.href="/"
+        window.location.href=`/view-chalet-owner/${resOwner.data.id}`
       }, 1000);
 
       }else{
@@ -69,6 +80,15 @@ useEffect(()=>{
   if (isLoadingBroker===false) {
     if (resBroker && resBroker.data) {
         console.log(resBroker.data);
+        if (ownerDataStr || brokerDataStr) {
+          // Data exists, so perform removal
+          if (ownerDataStr) {
+              localStorage.removeItem("owner"); // Remove owner data from localStorage
+          }
+          if (brokerDataStr) {
+              localStorage.removeItem("broker"); // Remove broker data from localStorage
+          }
+        }
         localStorage.setItem("broker", JSON.stringify(resBroker.data))
         setTimeout(() => {
           window.location.href="/"

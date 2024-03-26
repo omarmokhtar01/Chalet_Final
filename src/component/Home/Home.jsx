@@ -76,7 +76,7 @@ const dispatch = useDispatch()
         <MyNavbar />
         <div style={{ display: "flex", justifyContent: "space-between", marginTop:'50px'}}>
         {
-          ownerData.length <=0 && brokerData.length <=0 ? null:(
+           brokerData.length <=0 ? null:(
             <>
             <span style={{fontSize:'18px',fontWeight:'500'}}>الشاليهات المتاحة الان 
           <span  style={{color:'#547AFF'}}>( ايجار )</span></span>
@@ -85,33 +85,7 @@ const dispatch = useDispatch()
         }
         </div>
         <Row>
-          {
-             (ownerData && Array.isArray(ownerData)) ? (
-            ownerData.map((item)=>{
-return(
-              <Col xs={6} md={4} lg={2} style={{ textAlign: 'center', marginTop: '50px' }} key={item.id}>
-              <Link to={`/view-chalet/${item.id}`} style={{textDecoration:'none',color:'black'}}>
-        <Col xs={12} lg={12}>
-          <img
-            // src="https://ongineering.com/images/Articles_Aziz/design-of-private-chalets.jpg"
-            src={item.image_area}
-            width={150}
-            height={150}
-            style={{ borderRadius: '50%' }}
-            alt="Chalet"
-          />
-        </Col>
-        <Col xs={12} lg={12}>
-          <span>شالية رقم 1
-            {item.title}
-          </span>
-        </Col>
-        </Link>
-      </Col>
-      )
-            })
-            ):null
-          }
+         
 
 
 {
@@ -643,7 +617,7 @@ return(
 
         </Row> */}
         {
-          ownerData.length <=0 && brokerData.length <=0 ? (
+           brokerData.length <=0 ? (
           <div style={{height:'360px',textAlign:'center'}}>
             <Row>
               <Col>

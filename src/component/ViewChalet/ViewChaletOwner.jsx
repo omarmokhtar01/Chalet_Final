@@ -19,7 +19,7 @@ import { getOneChaletById } from "../../features/allChalet/allChaletSlice";
 import { useParams } from 'react-router-dom';
 import { bookOneChalet } from '../../features/allChalet/allChaletSlice';
 
-const ViewChalet = () => {
+const ViewChaletOwner = () => {
 //   useEffect(()=>{
     // const ownerLocalStorage = localStorage.getItem('owner')
 // const brokerLocalStorage = localStorage.getItem('broker')
@@ -147,7 +147,7 @@ const handleSubmit = async (e) => {
 const ownerLocalStorage = localStorage.getItem('owner')
 const brokerDataStr = localStorage.getItem("broker");
 
-if ( !brokerDataStr ) {
+if ( !ownerLocalStorage ) {
   
   setTimeout(() => {
     window.location.href="/login"
@@ -685,4 +685,4 @@ if ( !brokerDataStr ) {
   );
 };
 
-export default ViewChalet;
+export default ViewChaletOwner;
