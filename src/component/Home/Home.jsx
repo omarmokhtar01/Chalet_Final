@@ -10,6 +10,13 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 const Home = () => {
+  if ( !brokerDataStr ) {
+  
+    setTimeout(() => {
+      window.location.href="/login"
+  
+    }, 500);
+  }
 //   const ownerLocalStorage = localStorage.getItem('owner')
 //   const brokerLocalStorage = localStorage.getItem('broker')
 //   useEffect(()=>{
