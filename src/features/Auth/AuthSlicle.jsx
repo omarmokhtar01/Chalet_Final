@@ -23,7 +23,7 @@ const initialState = {
     return error
   }
 });
-
+ 
 
  const createUserOwnerChalet = createAsyncThunk('auth/owner', async (formData, thunkAPI) => {
   try {
