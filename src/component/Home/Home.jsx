@@ -10,6 +10,8 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 const Home = () => {
+  const ownerDataStr =  localStorage.getItem("owner")
+  const brokerDataStr = localStorage.getItem("broker");
   if ( !brokerDataStr ) {
   
     setTimeout(() => {
@@ -54,8 +56,7 @@ const dispatch = useDispatch()
 
 
 
-  const ownerDataStr =  localStorage.getItem("owner")
-  const brokerDataStr = localStorage.getItem("broker");
+
   
   let brokerData = [];
   if (brokerDataStr) {
