@@ -80,14 +80,14 @@ const dispatch = useDispatch()
   return (
     <>
     
-      <Container>
+      <Container style={{fontFamily:'Cairo'}}>
         <MyNavbar />
         <div style={{ display: "flex", justifyContent: "space-between", marginTop:'50px'}}>
         {
            brokerData.length <=0 ? null:(
             <>
-            <span style={{fontSize:'18px',fontWeight:'500'}}>الشاليهات المتاحة الان 
-          <span  style={{color:'#547AFF'}}>( ايجار )</span></span>
+            <span style={{fontSize:'24px',fontWeight:'500'}}>الشاليهات المتاحة الان   
+          <span  style={{color:'#547AFF'}}>{" "}  ( ايجار )</span></span>
             </>
           )
         }
@@ -112,8 +112,9 @@ return(
             alt="Chalet"
           />
         </Col>
-        <Col xs={12} lg={12}>
-          <span>شالية رقم 1
+        <Col xs={12} lg={12} style={{marginTop:'8px'}}>
+        <span >  
+
             {item.title}
           </span>
         </Col>

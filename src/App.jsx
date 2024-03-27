@@ -16,7 +16,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<Login />} />
-          <Route path="/determine-chalet" element={<Determine />} />
+          <Route path="/determine-chalet/:id" element={<Determine />} />
           <Route path="/view-chalet/:id" element={<ViewChalet />} />
           <Route path="/view-chalet-owner/:id" element={<ViewChaletOwner />} />
 

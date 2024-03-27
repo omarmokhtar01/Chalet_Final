@@ -1,6 +1,6 @@
 import "./ViewChalet.css";
 import MyNavbar from "../Navbar/MyNavbar";
-import {Container,Row, Col, Form,FloatingLabel,Button,Table,} from "react-bootstrap";
+import {Container,Row, Col, Form,FloatingLabel,Button,Table,Spinner} from "react-bootstrap";
 import { FaRegCopy, FaWhatsapp } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
 import toast, { Toaster } from 'react-hot-toast';
@@ -102,6 +102,8 @@ console.log(getStatusBook);
 // getStatusBook.Bathroom
 // getStatusBook.Registration_code
 // getStatusBook.days
+
+
 let idInteger;
 if (id && !isNaN(id)) {
   idInteger = parseInt(id, 10);
@@ -176,7 +178,16 @@ const handleCopyValue = () => {
               <Row>
               <Col className=" my-3" lg={12} style={{display:'flex',justifyContent:'space-around'}}>
                 <span style={{ fontWeight: "700" }}>
+                  {
                   
+                  (() => {
+                    localStorage.setItem('img', getStatusBook.data.image_area);
+                    localStorage.setItem('id', id);
+                    localStorage.setItem('private',getStatusBook.data.Registration_code)
+                    // You can also return a value if needed
+                    return null; // or any other JSX element
+                  })()
+                  }
                   {/* شالية رقم <span style={{ color: "#547AFF" }}>( 1 )</span> */}
     {getStatusBook.data.title}
     
@@ -185,11 +196,11 @@ const handleCopyValue = () => {
                
               </Col>
     
-              <Col lg={12} xs={12} md={12} sm={12} className="my-1">
+              <Col lg={12} xs={12} md={12} sm={12} className="my-1 text-center">
                 <img
                  src={getStatusBook.data.image_area}
                   // src="https://archgalleries.com/wp-content/uploads/2020/03/%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D8%B4%D8%A7%D9%84%D9%8A%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%B9%D8%B2%D9%8A%D8%B2%D9%8A%D8%A9-1.jpg"
-                  style={{ width: "100%", height: "300px", borderRadius: "10px" }}
+                  style={{ maxWidth: "100%", maxHeight: "300px", borderRadius: "10px" }}
                   alt="Image"
                 />
               </Col>
@@ -227,7 +238,7 @@ const handleCopyValue = () => {
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <h5>
-        كود التسجيل: {getStatusBook.data.Registration_code}
+        كود التسجيل: 
       </h5>
       <div
         style={{ color: "#547AFF", cursor: "pointer" }}
@@ -349,7 +360,7 @@ const handleCopyValue = () => {
                             cursor: "pointer",
                           }}
                         >
-                          <FaPhoneAlt size={15} />
+                          <FaPhoneAlt size={15} style={{marginLeft:'5px'}}/>
     
                           <span style={{ fontSize: "14px" }}>تواصل عبر الهاتف</span>
                         </div>
@@ -371,7 +382,7 @@ const handleCopyValue = () => {
                             margin:'0px 4px'
                           }}
                         >
-                          <IoMail size={20} />
+                          <IoMail size={20} style={{marginLeft:'5px'}}/>
     
                           <span style={{ fontSize: "14px" }}>تواصل عبر البريد</span>
                         </div>
@@ -393,7 +404,7 @@ const handleCopyValue = () => {
                             cursor: "pointer",
                           }}
                         >
-                          <FaWhatsapp size={20} />
+                          <FaWhatsapp size={20} style={{marginLeft:'5px'}}/>
     
                           <span style={{ fontSize: "14px" }}>تواصل عبر واتساب</span>
                         </div>
@@ -451,7 +462,7 @@ const handleCopyValue = () => {
       key={index}
       >
         {console.log(item)}
-      <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
+      <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white',textAlign:'center' }}>
         
       <span>{item}</span>
       {/* <span>10</span>
@@ -606,7 +617,7 @@ const handleCopyValue = () => {
            
            
           </Row>
-          <Col lg={12} xs={12} className="my-3">
+          {/* <Col lg={12} xs={12} className="my-3">
               <span style={{fontWeight:'500'}}>تحديد المدة</span>
               <Col lg={12} xs={12}>
               <Row>
@@ -686,15 +697,18 @@ const handleCopyValue = () => {
               onChange={(e)=>handleChangeTextArea(e)}
             />
           </FloatingLabel>
-            </Col>
+            </Col> */}
     <Col lg={12} style={{display:'flex',justifyContent:'center'}}>
             <Button 
-            onClick={handleSubmit}
+            href={`/determine-chalet/${id}`}
             style={{backgroundColor:'#547AFF',color:'white',width:'350px',marginTop:'20px'}}>حجز الأن</Button>
             </Col>
             </Row>
             ):null
-          ): null
+          ): <div style={{height:"450px"}}>
+            <Spinner animation="border" variant="primary"/>
+
+          </div>
         }
        
       </Container>
