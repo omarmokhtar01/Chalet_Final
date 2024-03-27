@@ -106,6 +106,7 @@ let idInteger;
 if (id && !isNaN(id)) {
   idInteger = parseInt(id, 10);
 }
+const idStorage= localStorage.getItem("id")
 const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -132,7 +133,7 @@ const handleSubmit = async (e) => {
   
   // Assuming dispatch is an async function that handles the form data
   try {
-    await dispatch(bookOneChalet(formData, idInteger));
+    await dispatch(bookOneChalet(formData, idStorage));
     setTimeout(() => {
     }, 1000);
     // Handle success if needed

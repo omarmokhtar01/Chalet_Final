@@ -97,31 +97,34 @@ const initialState = {
 
   
   
-    const bookOneChalet = createAsyncThunk(  'book/onechalet', async (formData,id , thunkAPI) => {
-      try {
-        const response = await baseUrl.post(
-          `api/Bookshalihat/store?id=${871711312881}`,
-          formData,
-          {
-            params: {
-              name: formData.name,
-              date_arrival: formData.date_arrival,
-              Departure_Date: formData.Departure_Date,
-              phone : formData.phone
+    const bookOneChalet = createAsyncThunk(
+      'book/onechalet',
+      async ({ formData, id }, thunkAPI) => {
+        try {
+          const response = await baseUrl.post(
+            `api/Bookshalihat/store?id=${id}`,
+            formData,
+            {
+              params: {
+                name: formData.name,
+                date_arrival: formData.date_arrival,
+                Departure_Date: formData.Departure_Date,
+                phone: formData.phone
+              }
+              // ,headers: {
+              //   Authorization:` Bearer ${token}` // Enclose the token interpolation in backticks
+              // }
             }
-            // ,headers: {
-            //   Authorization:` Bearer ${token}` // Enclose the token interpolation in backticks
-            // }
-          }
-        );
-        console.log(response);
-        return response.data;
-      } catch (error) {
-        // You might want to handle errors more appropriately here
-        return thunkAPI.rejectWithValue(error.message);
+          );
+          console.log(response);
+          return response.data;
+        } catch (error) {
+          // You might want to handle errors more appropriately here
+          return thunkAPI.rejectWithValue(error.message);
+        }
       }
-    }
-  );
+    );
+    
 
 
 

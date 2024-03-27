@@ -182,7 +182,7 @@ const handleCopyValue = () => {
                   
                   (() => {
                     localStorage.setItem('img', getStatusBook.data.image_area);
-                    localStorage.setItem('id', id);
+                    localStorage.setItem('id',JSON.stringify(id));
                     localStorage.setItem('private',getStatusBook.data.Registration_code)
                     // You can also return a value if needed
                     return null; // or any other JSX element

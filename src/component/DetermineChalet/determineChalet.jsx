@@ -105,13 +105,12 @@ const privateStorage = localStorage.getItem("private")
        setCopiedValue("");
      }, 2000);
    };
-   let idInteger;
-   if (id && !isNaN(id)) {
-     idInteger = parseInt(id, 10);
-   }
+
+   
+
    const handleSubmit = async (e) => {
      e.preventDefault();
-   
+  
      const formData = {
        name: name,
        date_arrival: selectedDate1,
@@ -135,8 +134,8 @@ const privateStorage = localStorage.getItem("private")
      
      // Assuming dispatch is an async function that handles the form data
      try {
-       await dispatch(bookOneChalet(formData, idInteger));
-       setTimeout(() => {
+      await dispatch(bookOneChalet({ formData, id }));
+      setTimeout(() => {
         setName("")
         setPhone("")
         setSelectedDate1(null)
