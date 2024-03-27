@@ -455,8 +455,8 @@ const handleCopyValue = () => {
     
               <Row>
      {
-      getStatusBook && getStatusBook.data &&getStatusBook.data.days ? (
-        getStatusBook.data.days.map((item,index)=>{
+      getStatusBook &&getStatusBook.data && getStatusBook.data.from_day &&getStatusBook.data.from_day.length ? (
+        getStatusBook.data.from_day.map((item,index)=>{
     return( 
       <Col lg={2} xs={4} md={2} className="mt-4" 
       key={index}
@@ -464,7 +464,29 @@ const handleCopyValue = () => {
         {console.log(item)}
       <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white',textAlign:'center' }}>
         
-      <span>{item}</span>
+      <span>من {item}</span>
+      {/* <span>10</span>
+        <span>يونيو</span> */}
+    
+      </div>
+      </Col>
+     )
+    
+        })
+      ):null
+    } 
+
+{
+      getStatusBook &&getStatusBook.data && getStatusBook.data.To_day &&getStatusBook.data.To_day.length ? (
+        getStatusBook.data.To_day.map((item,index)=>{
+    return( 
+      <Col lg={2} xs={4} md={2} className="mt-4" 
+      key={index}
+      >
+        {console.log(item)}
+      <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#58CD55', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white',textAlign:'center' }}>
+        
+      <span>الي {item}</span>
       {/* <span>10</span>
         <span>يونيو</span> */}
     
