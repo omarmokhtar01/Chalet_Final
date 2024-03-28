@@ -38,7 +38,7 @@ const initialState = {
     const getOneChaletById = createAsyncThunk('get/chalet/one', async (id, thunkAPI) => {
       try {
         const response = await baseUrl.post(
-          `api/Broker/Get_ChaletBroker_id?id=${id}`
+          `api/Chalet/get_id?id=${id}`
           ,{
             // Add headers for authorization or other required headers
             headers: {

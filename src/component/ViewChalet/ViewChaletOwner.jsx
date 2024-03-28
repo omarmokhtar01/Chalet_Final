@@ -6,6 +6,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 import toast, { Toaster } from 'react-hot-toast';
 
 import DatePicker from "react-datepicker";
+import { format, eachDayOfInterval } from 'date-fns';
 
 import "react-datepicker/dist/react-datepicker.css";
 import ar from "date-fns/locale/ar"; // Import the Arabic locale from date-fns
@@ -20,6 +21,8 @@ import { useParams } from 'react-router-dom';
 import { bookOneChalet } from '../../features/allChalet/allChaletSlice';
 
 const ViewChaletOwner = () => {
+  const ownerLocalStorage = localStorage.getItem('owner')
+
 //   useEffect(()=>{
     // const ownerLocalStorage = localStorage.getItem('owner')
 // const brokerLocalStorage = localStorage.getItem('broker')
@@ -71,7 +74,6 @@ const ViewChaletOwner = () => {
   const isLoading = useSelector((state) => state.AllChalet.isLoadingOneChalet);
  
 
-console.log(getStatusBook);
   useEffect(()=>{
    dispatch(getOneChaletById(id))
   },[dispatch])
@@ -79,7 +81,7 @@ console.log(getStatusBook);
   // useEffect(()=>{
   //  dispatch(getStatusBook(id))
   // },[dispatch])
-
+console.log(getStatusBook);
 
   // getStatusBook.title
 // getStatusBook.price
@@ -145,8 +147,8 @@ const handleSubmit = async (e) => {
 };
 
 
-const ownerLocalStorage = localStorage.getItem('owner')
 const brokerDataStr = localStorage.getItem("broker");
+
 
 if ( !ownerLocalStorage ) {
   
@@ -165,7 +167,11 @@ const handleCopyValue = () => {
   setTimeout(() => {
     setCopiedValue("");
   }, 2000);
+
 };
+const startDate = new Date(2024, 6, 1); // June 1st, 2024
+const endDate = new Date(2024, 8, 30); // September 30th, 2024
+const datesArray = eachDayOfInterval({ start: startDate, end: endDate });
   return (
     <>
       <Container>
@@ -321,7 +327,6 @@ const handleCopyValue = () => {
                           style={{ borderRadius: "50%", marginLeft: "20px" }}
                         />
                         <h6 style={{ fontWeight: "600" }}>
-                          محمد معتصم
 
     
     {getStatusBook.data.name_OwnerChalet}
@@ -438,49 +443,18 @@ const handleCopyValue = () => {
               </Col>
     
               <Row>
-     {
-      getStatusBook &&getStatusBook.data && getStatusBook.data.from_day &&getStatusBook.data.from_day.length ? (
-        getStatusBook.data.from_day.map((item,index)=>{
-    return( 
-      <Col lg={2} xs={4} md={2} className="mt-4" 
-      key={index}
-      >
-        {console.log(item)}
-      <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white',textAlign:'center' }}>
-        
-      <span>من {item}</span>
-      {/* <span>10</span>
-        <span>يونيو</span> */}
-    
-      </div>
-      </Col>
-     )
-    
-        })
-      ):null
-    } 
-
-{
-      getStatusBook &&getStatusBook.data && getStatusBook.data.To_day &&getStatusBook.data.To_day.length ? (
-        getStatusBook.data.To_day.map((item,index)=>{
-    return( 
-      <Col lg={2} xs={4} md={2} className="mt-4" 
-      key={index}
-      >
-        {console.log(item)}
-      <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#58CD55', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white',textAlign:'center' }}>
-        
-      <span>الي {item}</span>
-      {/* <span>10</span>
-        <span>يونيو</span> */}
-    
-      </div>
-      </Col>
-     )
-    
-        })
-      ):null
-    } 
+              {datesArray.map((date, index) => (
+         <Col key={index} lg={2} xs={1} md={2} className="mt-4 custom-col">
+         <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
+           <span style={{ fontSize: '18px', marginBottom: '5px' }}>
+             {format(date, 'd')}
+           </span>
+           <span style={{fontSize:'12px'}}>
+             {format(date, 'MMMM', { locale: ar })}
+           </span>
+         </div>
+       </Col>
+      ))}
            
     
     
