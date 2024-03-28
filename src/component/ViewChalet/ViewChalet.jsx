@@ -413,6 +413,8 @@ const handleCopyValue = () => {
                       </Row>
                     </div>
     
+                    <Row >
+      <Col>
                     <div
                       style={{
                         border: "1px solid rgb(0 0 0 / 10%)",
@@ -422,7 +424,9 @@ const handleCopyValue = () => {
                         marginTop: "20px",
                       }}
                     >
-                      <div style={{ display: "flex" }}>
+                      <div >
+                        <div >
+<div style={{display:'flex',alignItems:'center'}}>
                         <img
                         src={getStatusBook.data.image_area}
                           // src="https://ongineering.com/images/Articles_Aziz/design-of-private-chalets.jpg"
@@ -430,6 +434,7 @@ const handleCopyValue = () => {
                           height={90}
                           style={{ borderRadius: "50%" }}
                         />
+
                         <div style={{ paddingRight: "15px" }}>
                           
                           <h5 style={{ fontWeight: "400" }}>  
@@ -438,13 +443,20 @@ const handleCopyValue = () => {
 
                           {getStatusBook.data.name_area}
                           </h5>
+                          </div>
+                          </div>
+
+
                           <span style={{ color: "#1717177a" }}>
                             {getStatusBook.data.sub_description_area}
                            
                           </span>
+                          
                         </div>
                       </div>
                     </div>
+                    </Col>
+                    </Row>
                   </Col>
                 </Row>
               </Col>
