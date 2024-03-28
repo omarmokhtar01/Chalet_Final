@@ -305,159 +305,138 @@ const handleCopyValue = () => {
                   </Col>
     
                   <Col lg={6}>
-                    <div
-                      style={{
-                        border: "1px solid rgb(0 0 0 / 10%)",
-                        boxShadow: "0px 0px 0px 3px #8888880d",
-                        borderRadius: "10px",
-                        padding: "25px",
-                        marginTop: "10px",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          paddingRight: "50px",
-                          alignItems: "center",
-                          marginBottom: "20px",
-                          borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
-                          paddingBottom: "16px",
-                        }}
-                      >
-                        <img
-                        src={getStatusBook.data.Image_OwnerChalet}
-                          // src="https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
-                          width={90}
-                          height={90}
-                          style={{ borderRadius: "50%", marginLeft: "20px" }}
-                        />
-                        <h6 style={{ fontWeight: "600" }}>
-                          محمد معتصم
+  <div
+    style={{
+      border: "1px solid rgba(0, 0, 0, 0.1)",
+      boxShadow: "0px 0px 0px 3px #8888880d",
+      borderRadius: "10px",
+      padding: "25px",
+      marginTop: "10px",
+    }}
+  >
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        marginBottom: "20px",
+        paddingBottom: "16px",
+        borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
+      }}
+    >
+      <img
+        src={getStatusBook.data.Image_OwnerChalet}
+        width={90}
+        height={90}
+        style={{ borderRadius: "50%", marginLeft: "20px" }}
+        alt="Owner Chalet"
+      />
+      <h6 style={{ fontWeight: "600" }}>
+        {getStatusBook.data.name_OwnerChalet}
+      </h6>
+    </div>
+    <Row>
+      <div className="responsive-design" style={{ display: "flex" }}>
+        <Col md={4} sm={4} xs={4}>
+          <a href={getStatusBook.data.phone_OwnerChalet} style={{ textDecoration: "none" }}>
+            <div
+              style={{
+                color: "rgb(84, 122, 255)",
+                border: "1px solid rgb(84, 122, 255)",
+                height: "50px",
+                width: "auto",
+                borderRadius: "10px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+            >
+              <FaPhoneAlt size={15} style={{ marginLeft: "5px" }} />
+              <span style={{ fontSize: "14px" }}>تواصل عبر الهاتف</span>
+            </div>
+          </a>
+        </Col>
+        {/* Uncomment this section if needed */}
+        {/* <Col md={4} sm={4} xs={4}>
+          <a href={getStatusBook.data.email_OwnerChalet} style={{ textDecoration: "none" }}>
+            <div
+              style={{
+                color: "rgb(84, 122, 255)",
+                border: "1px solid rgb(84, 122, 255)",
+                height: "50px",
+                width: "auto",
+                borderRadius: "10px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+                margin: "0px 4px",
+              }}
+            >
+              <IoMail size={20} style={{ marginLeft: "5px" }} />
+              <span style={{ fontSize: "14px" }}>تواصل عبر البريد</span>
+            </div>
+          </a>
+        </Col> */}
+        <Col md={4} sm={4} xs={4} style={{ marginRight: "12px" }}>
+          <a href={getStatusBook.data.whatsapp_OwnerChalet} style={{ textDecoration: "none" }}>
+            <div
+              style={{
+                color: "rgb(84, 122, 255)",
+                border: "1px solid rgb(84, 122, 255)",
+                height: "50px",
+                width: "auto",
+                borderRadius: "10px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+            >
+              <FaWhatsapp size={20} style={{ marginLeft: "5px" }} />
+              <span style={{ fontSize: "14px" }}>تواصل عبر واتساب</span>
+            </div>
+          </a>
+        </Col>
+      </div>
+    </Row>
+  </div>
 
-    
-    {getStatusBook.data.name_OwnerChalet}
-                        </h6>
-                      </div>
-                      <Row>
-                      <div
-                        
-                        className="responsive-design"
-                        style={{display:'flex'}}
+  <div
+    style={{
+      border: "1px solid rgba(0, 0, 0, 0.1)",
+      boxShadow: "0px 0px 0px 3px #8888880d",
+      borderRadius: "10px",
+      padding: "25px",
+      marginTop: "20px",
+    }}
+  >
+    <div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <img
+          src={getStatusBook.data.image_area}
+          width={90}
+          height={90}
+          style={{ borderRadius: "50%" }}
+          alt="Area Image"
+        />
+        <div style={{ paddingRight: "15px" }}>
+          <h5 style={{ fontWeight: "400" }}>{getStatusBook.data.name_area}</h5>
+        </div>
+      </div>
 
-                      >
-                        <Col md={4} sm={4} xs={4}>
-                        <a href={getStatusBook.data.phone_OwnerChalet} style={{textDecoration:'none'}}>
-                        <div
-                          style={{
-                            color: "rgb(84, 122, 255)",
-                            border: "1px solid rgb(84, 122, 255)",
-                            height: "50px",
-                            width: "auto",
-                            borderRadius: "10px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            cursor: "pointer",
-                          }}
-                        >
-                          <FaPhoneAlt size={15} style={{marginLeft:'5px'}}/>
-    
-                          <span style={{ fontSize: "14px" }}>تواصل عبر الهاتف</span>
-                        </div>
-                        </a>
-                        </Col>
-                        <Col md={4} sm={4} xs={4}>
-    <a href={getStatusBook.data.email_OwnerChalet} style={{textDecoration:'none'}}>
-                        <div
-                          style={{
-                            color: "rgb(84, 122, 255)",
-                            border: "1px solid rgb(84, 122, 255)",
-                            height: "50px",
-                            width: "auto",
-                            borderRadius: "10px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            cursor: "pointer",
-                            margin:'0px 4px'
-                          }}
-                        >
-                          <IoMail size={20} style={{marginLeft:'5px'}}/>
-    
-                          <span style={{ fontSize: "14px" }}>تواصل عبر البريد</span>
-                        </div>
-     </a>
-     </Col>
-     
-                        <Col md={4} sm={4} xs={4}>
-    <a href={getStatusBook.data.whatsapp_OwnerChalet} style={{textDecoration:'none'}}>
-                        <div
-                          style={{
-                            color: "rgb(84, 122, 255)",
-                            border: "1px solid rgb(84, 122, 255)",
-                            height: "50px",
-                            width: "auto",
-                            borderRadius: "10px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            cursor: "pointer",
-                          }}
-                        >
-                          <FaWhatsapp size={20} style={{marginLeft:'5px'}}/>
-    
-                          <span style={{ fontSize: "14px" }}>تواصل عبر واتساب</span>
-                        </div>
-                         </a></Col>
-                      </div>
-                      </Row>
-                    </div>
-    
-                    <Row >
-      <Col>
-                    <div
-                      style={{
-                        border: "1px solid rgb(0 0 0 / 10%)",
-                        boxShadow: "0px 0px 0px 3px #8888880d",
-                        borderRadius: "10px",
-                        padding: "25px",
-                        marginTop: "20px",
-                      }}
-                    >
-                      <div >
-                        <div >
-<div style={{display:'flex',alignItems:'center'}}>
-                        <img
-                        src={getStatusBook.data.image_area}
-                          // src="https://ongineering.com/images/Articles_Aziz/design-of-private-chalets.jpg"
-                          width={90}
-                          height={90}
-                          style={{ borderRadius: "50%" }}
-                        />
+      <div>
+      <span style={{ color: "#1717177a", wordWrap: "break-word", whiteSpace: "pre-wrap" }}>
+  {getStatusBook.data.sub_description_area}
+ 
+</span>
 
-                        <div style={{ paddingRight: "15px" }}>
-                          
-                          <h5 style={{ fontWeight: "400" }}>  
-                          
+      </div>
+    </div>
+  </div>
+</Col>
 
 
-                          {getStatusBook.data.name_area}
-                          </h5>
-                          </div>
-                          </div>
-
-
-                          <span style={{ color: "#1717177a" }}>
-                            {getStatusBook.data.sub_description_area}
-                           
-                          </span>
-                          
-                        </div>
-                      </div>
-                    </div>
-                    </Col>
-                    </Row>
-                  </Col>
                 </Row>
               </Col>
     

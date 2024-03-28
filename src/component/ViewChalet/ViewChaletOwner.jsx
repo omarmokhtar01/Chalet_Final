@@ -354,7 +354,7 @@ const handleCopyValue = () => {
                         </div>
                         </a>
                         </Col>
-                        <Col lg={4} md={4} sm={4} xs={4}>
+                        {/* <Col lg={4} md={4} sm={4} xs={4}>
     <a href={getStatusBook.data.email_OwnerChalet} style={{textDecoration:'none'}}>
                         <div
                           style={{
@@ -375,9 +375,9 @@ const handleCopyValue = () => {
                           <span style={{ fontSize: "14px" }}>تواصل عبر البريد</span>
                         </div>
      </a>
-     </Col>
+     </Col> */}
      
-                        <Col lg={4} md={4} sm={4} xs={4}>
+                        <Col lg={4} md={4} sm={4} xs={4} style={{marginRight:'12px'}}>
     <a href={getStatusBook.data.whatsapp_OwnerChalet} style={{textDecoration:'none'}}>
                         <div
                           style={{
@@ -434,10 +434,10 @@ const handleCopyValue = () => {
                           </div>
 
 
-                          <span style={{ color: "#1717177a" }}>
-                            {getStatusBook.data.sub_description_area}
-                           
-                          </span>
+                          <span style={{ color: "#1717177a", wordWrap: "break-word", whiteSpace: "pre-wrap" }}>
+  {getStatusBook.data.sub_description_area}
+ 
+</span>
                           
                         </div>
                       </div>
