@@ -455,7 +455,7 @@ const handleCopyValue = () => {
               <Row>
 
               {datesArray.map((date, index) => (
-         <Col key={index} lg={2} xs={4} md={2} className="mt-4">
+         <Col key={index} lg={2} xs={1} md={2} className="mt-4 custom-col">
          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
            <span style={{ fontSize: '18px', marginBottom: '5px' }}>
              {format(date, 'd')}

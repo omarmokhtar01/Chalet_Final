@@ -35,8 +35,11 @@
 
   @media (max-width: 576px) { 
     .circle-chalet {
- width: 95px !important;
- height: 95px !important;
+ width: 40px !important;
+ height: 40px !important;
+    }
+    .circle-chalet span{
+      font-size: 8px !important;
     }
    }
    .responsive-design{
@@ -64,3 +67,8 @@
 @media (min-width: 992px) and (max-width: 1199.98px) { .spanResponsive {
 max-width: 300px !important;
 } }
+
+
+.custom-col {
+  width: calc((100% / 12) * 1.5); /* Calculate approximately 1.1 columns */
+}
