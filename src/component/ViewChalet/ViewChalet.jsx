@@ -6,6 +6,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 import toast, { Toaster } from 'react-hot-toast';
 
 import DatePicker from "react-datepicker";
+import { format, eachDayOfInterval } from 'date-fns';
 
 import "react-datepicker/dist/react-datepicker.css";
 import ar from "date-fns/locale/ar"; // Import the Arabic locale from date-fns
@@ -32,6 +33,10 @@ const ViewChalet = () => {
 // if ( ownerLocalStorage.length <=0 && brokerLocalStorage.length) {
 //   window.location.href="/login"
 // }
+const startDate = new Date(2024, 6, 1); // June 1st, 2024
+const endDate = new Date(2024, 8, 30); // September 30th, 2024
+const datesArray = eachDayOfInterval({ start: startDate, end: endDate });
+
   const dispatch = useDispatch()
   const { id } = useParams();
   const [name, setName] = useState("");
@@ -200,7 +205,7 @@ const handleCopyValue = () => {
                 <img
                  src={getStatusBook.data.image_area}
                   // src="https://archgalleries.com/wp-content/uploads/2020/03/%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D8%B4%D8%A7%D9%84%D9%8A%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%B9%D8%B2%D9%8A%D8%B2%D9%8A%D8%A9-1.jpg"
-                  style={{ maxWidth: "100%", maxHeight: "300px", borderRadius: "10px" }}
+                  style={{ maxWidth: "100%", maxHeight: "300px", borderRadius: "10px",marginBottom:'32px' }}
                   alt="Image"
                 />
               </Col>
@@ -336,7 +341,7 @@ const handleCopyValue = () => {
     </div>
     <Row>
       <div className="responsive-design" style={{ display: "flex" }}>
-        <Col md={4} sm={4} xs={4}>
+        <Col md={6} sm={6} xs={6}>
           <a href={getStatusBook.data.phone_OwnerChalet} style={{ textDecoration: "none" }}>
             <div
               style={{
@@ -378,7 +383,7 @@ const handleCopyValue = () => {
             </div>
           </a>
         </Col> */}
-        <Col md={4} sm={4} xs={4} style={{ marginRight: "12px" }}>
+        <Col md={6} sm={6} xs={6} style={{ marginRight: "12px" }}>
           <a href={getStatusBook.data.whatsapp_OwnerChalet} style={{ textDecoration: "none" }}>
             <div
               style={{
@@ -412,26 +417,29 @@ const handleCopyValue = () => {
     }}
   >
     <div>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <img
-          src={getStatusBook.data.image_area}
-          width={90}
-          height={90}
-          style={{ borderRadius: "50%" }}
-          alt="Area Image"
-        />
-        <div style={{ paddingRight: "15px" }}>
-          <h5 style={{ fontWeight: "400" }}>{getStatusBook.data.name_area}</h5>
-        </div>
-      </div>
+    <div style={{ display: "flex" }}>
+  <img
+    src={getStatusBook.data.image_area}
+    width={90}
+    height={90}
+    style={{ borderRadius: "10%" }}
+    alt="Area Image"
+  />
+  <div style={{ paddingRight: "15px" }}>
+    <h5 style={{ fontWeight: "400" }}>{getStatusBook.data.name_area}</h5>
+    <span style={{ color: "#1717177a", wordWrap: "break-word", whiteSpace: "pre-wrap",display:'block',maxWidth:'350px' }} className="spanResponsive">
+      {getStatusBook.data.sub_description_area}
+    </span>
+  </div>
+</div>
 
-      <div>
+      {/* <div>
       <span style={{ color: "#1717177a", wordWrap: "break-word", whiteSpace: "pre-wrap" }}>
   {getStatusBook.data.sub_description_area}
  
 </span>
 
-      </div>
+      </div> */}
     </div>
   </div>
 </Col>
@@ -445,49 +453,22 @@ const handleCopyValue = () => {
               </Col>
     
               <Row>
-     {
-      getStatusBook &&getStatusBook.data && getStatusBook.data.from_day &&getStatusBook.data.from_day.length ? (
-        getStatusBook.data.from_day.map((item,index)=>{
-    return( 
-      <Col lg={2} xs={4} md={2} className="mt-4" 
-      key={index}
-      >
-        {console.log(item)}
-      <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white',textAlign:'center' }}>
-        
-      <span>من {item}</span>
-      {/* <span>10</span>
-        <span>يونيو</span> */}
-    
-      </div>
-      </Col>
-     )
-    
-        })
-      ):null
-    } 
 
-{
-      getStatusBook &&getStatusBook.data && getStatusBook.data.To_day &&getStatusBook.data.To_day.length ? (
-        getStatusBook.data.To_day.map((item,index)=>{
-    return( 
-      <Col lg={2} xs={4} md={2} className="mt-4" 
-      key={index}
-      >
-        {console.log(item)}
-      <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#58CD55', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white',textAlign:'center' }}>
-        
-      <span>الي {item}</span>
-      {/* <span>10</span>
-        <span>يونيو</span> */}
+              {datesArray.map((date, index) => (
+         <Col key={index} lg={2} xs={4} md={2} className="mt-4">
+         <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
+           <span style={{ fontSize: '18px', marginBottom: '5px' }}>
+             {format(date, 'd')}
+           </span>
+           <span style={{fontSize:'12px'}}>
+             {format(date, 'MMMM', { locale: ar })}
+           </span>
+         </div>
+       </Col>
+      ))}
+
+
     
-      </div>
-      </Col>
-     )
-    
-        })
-      ):null
-    } 
            
     
     

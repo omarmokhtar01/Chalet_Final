@@ -189,7 +189,7 @@ const handleCopyValue = () => {
                 <img
                  src={getStatusBook.data.image_area}
                   // src="https://archgalleries.com/wp-content/uploads/2020/03/%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D8%B4%D8%A7%D9%84%D9%8A%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%B9%D8%B2%D9%8A%D8%B2%D9%8A%D8%A9-1.jpg"
-                  style={{ maxWidth: "100%", maxHeight: "300px", borderRadius: "10px" }}
+                  style={{ maxWidth: "100%", maxHeight: "300px", borderRadius: "10px",marginBottom:'32px' }}
                   alt="Image"
                 />
               </Col>
@@ -333,7 +333,7 @@ const handleCopyValue = () => {
                         className="responsive-design"
                         style={{display:'flex'}}
                       >
-                        <Col lg={4} md={4} sm={4} xs={4}>
+                        <Col lg={6} md={6} sm={6} xs={6}>
                         <a href={getStatusBook.data.phone_OwnerChalet} style={{textDecoration:'none'}}>
                         <div
                           style={{
@@ -377,7 +377,7 @@ const handleCopyValue = () => {
      </a>
      </Col> */}
      
-                        <Col lg={4} md={4} sm={4} xs={4} style={{marginRight:'12px'}}>
+                        <Col lg={6} md={6} sm={6} xs={6} style={{marginRight:'12px'}}>
     <a href={getStatusBook.data.whatsapp_OwnerChalet} style={{textDecoration:'none'}}>
                         <div
                           style={{
@@ -411,36 +411,21 @@ const handleCopyValue = () => {
                         marginTop: "20px",
                       }}
                     >
-                      <div >
-                        <div >
-<div style={{display:'flex',alignItems:'center'}}>
-                        <img
-                        src={getStatusBook.data.image_area}
-                          // src="https://ongineering.com/images/Articles_Aziz/design-of-private-chalets.jpg"
-                          width={90}
-                          height={90}
-                          style={{ borderRadius: "50%" }}
-                        />
-
-                        <div style={{ paddingRight: "15px" }}>
-                          
-                          <h5 style={{ fontWeight: "400" }}>  
-                          
-
-
-                          {getStatusBook.data.name_area}
-                          </h5>
-                          </div>
-                          </div>
-
-
-                          <span style={{ color: "#1717177a", wordWrap: "break-word", whiteSpace: "pre-wrap" }}>
-  {getStatusBook.data.sub_description_area}
- 
-</span>
-                          
-                        </div>
-                      </div>
+                       <div style={{ display: "flex" }}>
+  <img
+    src={getStatusBook.data.image_area}
+    width={90}
+    height={90}
+    style={{ borderRadius: "10%" }}
+    alt="Area Image"
+  />
+  <div style={{ paddingRight: "15px" }}>
+    <h5 style={{ fontWeight: "400" }}>{getStatusBook.data.name_area}</h5>
+    <span style={{ color: "#1717177a", wordWrap: "break-word", whiteSpace: "pre-wrap",display:'block',maxWidth:'350px' }} className="spanResponsive">
+      {getStatusBook.data.sub_description_area}
+    </span>
+  </div>
+</div>
                     </div>
                     </Col>
                     </Row>
