@@ -446,10 +446,10 @@ const datesArray = eachDayOfInterval({ start: startDate, end: endDate });
               {datesArray.map((date, index) => (
          <Col key={index} lg={2} xs={1} md={2} className="mt-4 custom-col">
          <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-           <span style={{ fontSize: '18px', marginBottom: '5px' }}>
+         <span style={{ fontSize: '18px', marginBottom: '10px' }}>
              {format(date, 'd')}
            </span>
-           <span style={{fontSize:'12px'}}>
+           <span style={{ fontSize: '12px', marginTop: '5px' }}>
              {format(date, 'MMMM', { locale: ar })}
            </span>
          </div>

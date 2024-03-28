@@ -39,7 +39,9 @@
  height: 40px !important;
     }
     .circle-chalet span{
-      font-size: 8px !important;
+      font-size: 9px !important;
+      margin-bottom: -1px !important;
+      margin-top: -2px !important;
     }
    }
    .responsive-design{
