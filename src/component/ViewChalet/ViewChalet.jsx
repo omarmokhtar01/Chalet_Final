@@ -173,48 +173,7 @@ const handleCopyValue = () => {
     setCopiedValue("");
   }, 2000);
 };
-let formattedDatesArr = [];
 
-const processDates = () => {
-  return new Promise((resolve, reject) => {
-    const longDatesStr = localStorage.getItem("days");
-    if (!longDatesStr) {
-      reject("No dates found in localStorage");
-      return;
-    }
-
-    const longDatesArr = longDatesStr.split(',');
-
-    longDatesArr.forEach(dateStr => {
-      const dateObj = new Date(dateStr);
-      const dayOfWeek = dateObj.toLocaleString('en-US', { weekday: 'short' });
-      const monthName = dateObj.toLocaleString('en-US', { month: 'short' });
-      const formattedDateStr = `${dayOfWeek} ${monthName} ${dateObj.getDate()} ${dateObj.getFullYear()} ${dateObj.toTimeString().slice(0, 8)} GMT`;
-      formattedDatesArr.push(formattedDateStr);
-    });
-
-    console.log(formattedDatesArr[0]); // Logs correctly
-
-    // Resolve the Promise with formattedDatesArr
-    resolve(formattedDatesArr);
-  });
-};
-
-// Call processDates and handle the resolved value
-processDates()
-  .then(result => {
-    console.log(result[0]); // Logs correctly
-    localStorage.setItem("formattedDatesNew", JSON.stringify(result));
-  })
-  .catch(err => {
-    console.error(err);
-  });
-const formattedDatesArrDate = JSON.parse(localStorage.getItem("formattedDatesNew"))
-const compareDates = (dateToCompare, formatString) => {
-  const formattedDateToCompare = format(dateToCompare, formatString);
-  return formattedDatesArrDate.includes(formattedDateToCompare);
-};
-console.log(formattedDatesArrDate);
   return (
     <>
       <Container>
@@ -526,55 +485,9 @@ console.log(formattedDatesArrDate);
 
 
 
-
-
-              {
-      getStatusBook &&getStatusBook.data && getStatusBook.data.from_day &&getStatusBook.data.from_day.length ? (
-        getStatusBook.data.from_day.map((item,index)=>{
-          return( 
-            <>
-            {
-              localStorage.setItem('fromdays',item)
-            }
-            </>
-           )
-        })
-      ):null
-    } 
-
-{
-      getStatusBook &&getStatusBook.data && getStatusBook.data.To_day &&getStatusBook.data.To_day.length ? (
-        getStatusBook.data.To_day.map((item,index)=>{
-    return( 
-      <>
-      {
-        localStorage.setItem('todays',item)
-      }
-      </>
-     )
-    
-        })
-      ):null
-    } 
-
-
-
-
-
-
-
-
-
-{
-    localStorage.setItem("days",eachDayOfInterval({ start: localStorage.getItem("fromdays"), end: localStorage.getItem("todays") })) 
-
-}
-
 {datesArray.map((date, index) => {
-        const formattedDate = format(date, 'EEE MMM dd yyyy'); // Format date for comparison
 
         // Check if formattedDate exists in formattedDatesArr
-        const dateExists = compareDates(date, 'EEE MMM dd yyyy');
 
         return (
           <Col key={index} lg={2} xs={1} md={2} className="mt-4 custom-col">
@@ -584,7 +497,7 @@ console.log(formattedDatesArrDate);
                 width: '100px',
                 height: '100px',
                 borderRadius: '50%',
-                backgroundColor: dateExists ? '#FF5722' : '#547AFF',
+                backgroundColor:  '#547AFF',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
