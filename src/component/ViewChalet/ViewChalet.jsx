@@ -16,7 +16,7 @@ import { IoMail } from "react-icons/io5";
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import MyFooter from "../Footer/MyFooter";
-import { getOneChaletById } from "../../features/allChalet/allChaletSlice";
+import { getOneChaletById, getOneChaletByIdBroker } from "../../features/allChalet/allChaletSlice";
 import { useParams } from 'react-router-dom';
 import { bookOneChalet } from '../../features/allChalet/allChaletSlice';
 
@@ -72,13 +72,13 @@ const datesArray = eachDayOfInterval({ start: startDate, end: endDate });
   };
 
   
-  const getStatusBook = useSelector((state) => state.AllChalet.oneChalet);
+  const getStatusBook = useSelector((state) => state.AllChalet.oneChaletBroker);
   const isLoading = useSelector((state) => state.AllChalet.isLoadingOneChalet);
  
 
 console.log(getStatusBook);
   useEffect(()=>{
-   dispatch(getOneChaletById(id))
+   dispatch(getOneChaletByIdBroker(id))
   },[dispatch])
 
   // useEffect(()=>{
@@ -107,6 +107,7 @@ console.log(getStatusBook);
 // getStatusBook.Bathroom
 // getStatusBook.Registration_code
 // getStatusBook.days
+
 
 
 let idInteger;
@@ -172,7 +173,48 @@ const handleCopyValue = () => {
     setCopiedValue("");
   }, 2000);
 };
+let formattedDatesArr = [];
 
+const processDates = () => {
+  return new Promise((resolve, reject) => {
+    const longDatesStr = localStorage.getItem("days");
+    if (!longDatesStr) {
+      reject("No dates found in localStorage");
+      return;
+    }
+
+    const longDatesArr = longDatesStr.split(',');
+
+    longDatesArr.forEach(dateStr => {
+      const dateObj = new Date(dateStr);
+      const dayOfWeek = dateObj.toLocaleString('en-US', { weekday: 'short' });
+      const monthName = dateObj.toLocaleString('en-US', { month: 'short' });
+      const formattedDateStr = `${dayOfWeek} ${monthName} ${dateObj.getDate()} ${dateObj.getFullYear()} ${dateObj.toTimeString().slice(0, 8)} GMT`;
+      formattedDatesArr.push(formattedDateStr);
+    });
+
+    console.log(formattedDatesArr[0]); // Logs correctly
+
+    // Resolve the Promise with formattedDatesArr
+    resolve(formattedDatesArr);
+  });
+};
+
+// Call processDates and handle the resolved value
+processDates()
+  .then(result => {
+    console.log(result[0]); // Logs correctly
+    localStorage.setItem("formattedDatesNew", JSON.stringify(result));
+  })
+  .catch(err => {
+    console.error(err);
+  });
+const formattedDatesArrDate = JSON.parse(localStorage.getItem("formattedDatesNew"))
+const compareDates = (dateToCompare, formatString) => {
+  const formattedDateToCompare = format(dateToCompare, formatString);
+  return formattedDatesArrDate.includes(formattedDateToCompare);
+};
+console.log(formattedDatesArrDate);
   return (
     <>
       <Container>
@@ -200,16 +242,42 @@ const handleCopyValue = () => {
     
                
               </Col>
-    
-              <Col lg={12} xs={12} md={12} sm={12} className="my-1 text-center">
-                <img
-                 src={getStatusBook.data.image_area}
-                  // src="https://archgalleries.com/wp-content/uploads/2020/03/%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D8%B4%D8%A7%D9%84%D9%8A%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%B9%D8%B2%D9%8A%D8%B2%D9%8A%D8%A9-1.jpg"
-                  style={{ maxWidth: "100%", maxHeight: "300px", borderRadius: "10px",marginBottom:'32px' }}
-                  alt="Image"
-                />
-              </Col>
-    
+              <Row>
+      {/* First column with full-height image */}
+      <Col lg={6} xs={12} md={6} sm={12} className="text-center">
+        <img
+          src={getStatusBook.data.image_array[0]}
+          style={{ width: '100%', objectFit: 'cover', height: '70vh', borderRadius: '10px', marginBottom: '32px' }}
+          alt="Image"
+        />
+      </Col>
+
+      {/* Second column with two images */}
+      <Col lg={6} xs={12} md={6} sm={12} className="text-center">
+        <div style={{ display: 'flex', flexDirection: 'column', height: '70vh' }}>
+        {getStatusBook.data.image_array && getStatusBook.data.image_array.length > 1 ? (
+  <img
+    src={getStatusBook.data.image_array[1]}
+    style={{ flex: 1, objectFit: 'cover', borderRadius: '10px', marginBottom: '16px', height: '32vh' }}
+    alt="Image"
+  />
+) : (
+  null // Render null when image_array doesn't exist or doesn't have a valid image URL at index 1
+)}
+
+{getStatusBook.data.image_array && getStatusBook.data.image_array.length > 2 ? (
+  <img
+    src={getStatusBook.data.image_array[2]}
+    style={{ flex: 1, objectFit: 'cover', borderRadius: '10px', marginBottom: '16px', height: '35vh' }}
+    alt="Image"
+  />
+) : (
+  null // Render null when image_array doesn't exist or doesn't have a valid image URL at index 2
+)}
+
+        </div>
+      </Col>
+    </Row>
               {/* <Col
                 xs={12}
                 lg={6}
@@ -454,18 +522,86 @@ const handleCopyValue = () => {
     
               <Row>
 
-              {datesArray.map((date, index) => (
-         <Col key={index} lg={2} xs={1} md={2} className="mt-4 custom-col">
-         <div className="circle-chalet" style={{ width: '100px', height: '100px', borderRadius: "50%", backgroundColor: '#547AFF', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
-           <span style={{ fontSize: '18px', marginBottom: '5px' }}>
-             {format(date, 'd')}
-           </span>
-           <span style={{fontSize:'12px'}}>
-             {format(date, 'MMMM', { locale: ar })}
-           </span>
-         </div>
-       </Col>
-      ))}
+
+
+
+
+
+
+              {
+      getStatusBook &&getStatusBook.data && getStatusBook.data.from_day &&getStatusBook.data.from_day.length ? (
+        getStatusBook.data.from_day.map((item,index)=>{
+          return( 
+            <>
+            {
+              localStorage.setItem('fromdays',item)
+            }
+            </>
+           )
+        })
+      ):null
+    } 
+
+{
+      getStatusBook &&getStatusBook.data && getStatusBook.data.To_day &&getStatusBook.data.To_day.length ? (
+        getStatusBook.data.To_day.map((item,index)=>{
+    return( 
+      <>
+      {
+        localStorage.setItem('todays',item)
+      }
+      </>
+     )
+    
+        })
+      ):null
+    } 
+
+
+
+
+
+
+
+
+
+{
+    localStorage.setItem("days",eachDayOfInterval({ start: localStorage.getItem("fromdays"), end: localStorage.getItem("todays") })) 
+
+}
+
+{datesArray.map((date, index) => {
+        const formattedDate = format(date, 'EEE MMM dd yyyy'); // Format date for comparison
+
+        // Check if formattedDate exists in formattedDatesArr
+        const dateExists = compareDates(date, 'EEE MMM dd yyyy');
+
+        return (
+          <Col key={index} lg={2} xs={1} md={2} className="mt-4 custom-col">
+            <div
+              className="circle-chalet"
+              style={{
+                width: '100px',
+                height: '100px',
+                borderRadius: '50%',
+                backgroundColor: dateExists ? '#FF5722' : '#547AFF',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: 'white',
+              }}
+            >
+              <span style={{ fontSize: '18px', marginBottom: '5px' }}>
+                {format(date, 'd')}
+              </span>
+              <span style={{ fontSize: '12px' }}>
+                {format(date, 'MMM', { locale: ar })}
+              </span>
+            </div>
+          </Col>
+        );
+      })}
 
 
     

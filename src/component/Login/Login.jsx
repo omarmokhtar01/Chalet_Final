@@ -4,6 +4,7 @@ import './Login.css'
 import { createLoginUser, createUserOwnerChalet } from "../../features/Auth/AuthSlicle";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
   const ownerDataStr =  localStorage.getItem("owner")
@@ -49,9 +50,10 @@ const Login = () => {
   const isLoadingOwner = useSelector((state) => state.auth.isLoadingOwner);
   const errorOwner = useSelector((state) => state.auth.error);
 
+
+
   const resBroker = useSelector((state) => state.auth.userLogin)
   const isLoadingBroker = useSelector((state) => state.auth.isLoadingBroker);
-
 
 
   
@@ -67,6 +69,11 @@ useEffect(()=>{
 
       }else{
         console.log("no data available");
+      }
+      if (resOwner.message==="Request failed with status code 404") {
+console.log("toast");
+        toast.error("حدث خطأ في الدخول")
+
       }
   }
 
@@ -173,7 +180,8 @@ useEffect(()=>{
                     {/* style={{backgroundColor:'#547AFF',borderRadius:'20px'}}>تسجيل الدخول</Button> */}
                 </Col>
 
-            </Col>
+            </Col>    <Toaster />
+
             </Row>
     </Container>
   )

@@ -97,10 +97,11 @@ const dispatch = useDispatch()
 
 
 {
-           (brokerData && Array.isArray(brokerData)) ? (
-            brokerData.map((item,index)=>{
+           (brokerData && brokerData.data && Array.isArray(brokerData.data)) ? (
+            brokerData.data.map((item,index)=>{
 return(
               <Col xs={6} md={4} lg={2} style={{ textAlign: 'center', marginTop: '50px' }} key={item.id}>
+                {console.log(item)}
               <Link to={`/view-chalet/${item.id}`} style={{textDecoration:'none',color:'black'}}>
         <Col xs={12} lg={12}>
           <img

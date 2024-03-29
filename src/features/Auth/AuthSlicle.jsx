@@ -74,6 +74,7 @@ const authSlice = createSlice({
       .addCase(createUserOwnerChalet.rejected, (state, action) => {
         state.isLoadingOwner = false;
         state.error = action.payload;
+
       })
  }}
       );

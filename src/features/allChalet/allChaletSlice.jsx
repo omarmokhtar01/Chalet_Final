@@ -9,6 +9,7 @@ const initialState = {
    statusBook:[],
    bookChalet:[],
             oneChalet:{},
+            oneChaletBroker:{},
             isLoadingOneChalet:false,
 
     isLoading: false,
@@ -57,6 +58,29 @@ const initialState = {
       }
     });
 
+
+    
+    const getOneChaletByIdBroker = createAsyncThunk('get/chalet/oneBroker', async (id, thunkAPI) => {
+      try {
+        const response = await baseUrl.post(
+          `api/Broker/Get_ChaletBroker_id?id=${id}`
+          ,{
+            // Add headers for authorization or other required headers
+            headers: {
+              'Content-Type': 'application/json', // Example content type header
+              'Access-Control-Allow-Origin': '*',
+              'Origin': 'http://localhost:5173',
+              
+              
+            },
+          }
+        );
+          console.log(response);
+        return response;
+      } catch (error) {
+        return error
+      }
+    });
 
   const getAllBookChalet = createAsyncThunk('get/bookchalet', async (_, thunkAPI) => {
       try {
@@ -212,6 +236,22 @@ const initialState = {
               state.isLoadingOneChalet = false;
               state.error = action.payload;
             })
+
+
+            .addCase(getOneChaletByIdBroker.pending, (state) => {
+              state.isLoadingOneChalet = true;
+              state.error = null;
+            })
+            .addCase(getOneChaletByIdBroker.fulfilled, (state, action) => {
+              state.oneChaletBroker = action.payload;
+              state.isLoadingOneChalet = false;
+              state.error = null;
+            })
+            .addCase(getOneChaletByIdBroker.rejected, (state, action) => {
+              state.isLoadingOneChalet = false;
+              state.error = action.payload;
+            })
+            
             
   
   
@@ -219,6 +259,6 @@ const initialState = {
 
             }}
             );
-      export { getAllChalet , getAllBookChalet , getStatusBook ,bookOneChalet,getOneChaletById };
+      export { getAllChalet , getAllBookChalet , getStatusBook ,bookOneChalet,getOneChaletById,getOneChaletByIdBroker };
       
       export default allChaletSlice.reducer;
