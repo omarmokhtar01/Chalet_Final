@@ -1,29 +1,37 @@
-import { Container, Row, Col,Form ,Button} from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import loginImg from "../../assets/images/login.svg";
-import './Login.css'
-import { createLoginUser, createUserOwnerChalet } from "../../features/Auth/AuthSlicle";
+import "./Login.css";
+import {
+  createLoginUser,
+  createUserOwnerChalet,
+} from "../../features/Auth/AuthSlicle";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const ownerDataStr =  localStorage.getItem("owner")
-  const brokerDataStr = localStorage.getItem("broker")
-  useEffect(() => {
-    // Your effect code here
-  
-    return () => {
-      // Cleanup code here
-      console.log('Component unmounted or dependencies changed');
-    };
-  }, [/* dependencies array */]); // Empty dependency array ensures this effect runs only once
+  const ownerDataStr = localStorage.getItem("owner");
+  const brokerDataStr = localStorage.getItem("broker");
+  useEffect(
+    () => {
+      // Your effect code here
 
-   const dispatch = useDispatch();
+      return () => {
+        // Cleanup code here
+        console.log("Component unmounted or dependencies changed");
+      };
+    },
+    [
+      /* dependencies array */
+    ]
+  ); // Empty dependency array ensures this effect runs only once
+
+  const dispatch = useDispatch();
   //const navigate = useNavigate();
   const [state, setState] = useState({
-    Registration_code: ""
-   
-  }); 
+    Registration_code: "",
+  });
 
   // Destructure state object for easier access
   const { Registration_code } = state;
@@ -33,7 +41,6 @@ const Login = () => {
     setState((prevState) => ({ ...prevState, [fieldName]: e.target.value }));
   };
 
-
   // const res = useSelector((state) => state.auth.userLogin);
 
   // const isLoading = useSelector((state) => state.auth.isLoading);
@@ -41,63 +48,51 @@ const Login = () => {
 
   // console.log(res);
 
+  const ownerLocalStorage = JSON.parse(localStorage.getItem("owner"));
 
-  const ownerLocalStorage = localStorage.getItem('owner')
-
-
+  console.log("dhysagbiuy:", ownerLocalStorage.data.id);
   const resOwner = useSelector((state) => state.auth.userOwnerChalet);
+  console.log("-------:", resOwner);
 
   const isLoadingOwner = useSelector((state) => state.auth.isLoadingOwner);
   const errorOwner = useSelector((state) => state.auth.error);
 
-
-
-  const resBroker = useSelector((state) => state.auth.userLogin)
+  const resBroker = useSelector((state) => state.auth.userLogin);
   const isLoadingBroker = useSelector((state) => state.auth.isLoadingBroker);
 
-
-  
-useEffect(()=>{
-  if (isLoadingOwner===false) {
-    if (resOwner && resOwner.data) {
-
-        localStorage.setItem("owner", JSON.stringify(resOwner.data))
+  useEffect(() => {
+    if (isLoadingOwner === false) {
+      if (resOwner && resOwner.data) {
+        console.log("Owner data:", resOwner.data);
+        localStorage.setItem("owner", JSON.stringify(resOwner.data));
 
         setTimeout(() => {
-        window.location.href=`/view-chalet-owner/${resOwner.data.id}`
-      }, 1000);
-
-      }else{
+          window.location.href = `/view-chalet-owner/${ownerLocalStorage.data.id}`;
+        }, 1000);
+      } else {
         console.log("no data available");
       }
-      if (resOwner.message==="Request failed with status code 404") {
-console.log("toast");
-        toast.error("حدث خطأ في الدخول")
-
+      if (resOwner.message === "Request failed with status code 404") {
+        console.log("toast");
+        toast.error("حدث خطأ في الدخول");
       }
-  }
+    }
+  }, [dispatch, resOwner, isLoadingOwner]);
 
-
-
-},[dispatch,resOwner,isLoadingOwner])
-
-
-
-
-useEffect(()=>{
-  if (isLoadingBroker===false) {
-    if (resBroker && resBroker.data) {
+  useEffect(() => {
+    if (isLoadingBroker === false) {
+      if (resBroker && resBroker.data) {
         console.log(resBroker.data);
 
-        localStorage.setItem("broker", JSON.stringify(resBroker.data))
+        localStorage.setItem("broker", JSON.stringify(resBroker.data));
         setTimeout(() => {
-          window.location.href="/home"
+          window.location.href = "/home";
         }, 1000);
-      }else{
+      } else {
         console.log("no data available");
       }
-  }
-},[dispatch,resBroker,isLoadingBroker])
+    }
+  }, [dispatch, resBroker, isLoadingBroker]);
   //  console.log(res.data.token)
   // if (res && res.data) {
   //   console.log(res.data.token);
@@ -111,7 +106,7 @@ useEffect(()=>{
     // Assuming dispatch is a function available in your component
     await dispatch(
       createLoginUser({
-        Registration_code
+        Registration_code,
       })
     );
   };
@@ -121,70 +116,79 @@ useEffect(()=>{
     // Assuming dispatch is a function available in your component
     await dispatch(
       createUserOwnerChalet({
-        Registration_code
+        Registration_code,
       })
     );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (selectedOption === 'option1') {
+    if (selectedOption === "option1") {
       OnSubmitBroker(e);
-    } else if (selectedOption === 'option2') {
+    } else if (selectedOption === "option2") {
       OnSubmitOwner(e);
     }
   };
-  const [selectedOption, setSelectedOption] = useState('option1');
+  const [selectedOption, setSelectedOption] = useState("option1");
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
-
-
   return (
     <Container>
-        <Row className="justify-content-center text-center">
-            <Col xs={12} lg={12} style={{width:'30%'}} className="login-page">
-            <Col xs={12} lg={12}>
-                <img src={loginImg} alt='login' className="w-100 mt-5"/>
-                </Col>
-                <Col xs={12} lg={12}>
-                <h3>ادخل كود التسجيل</h3></Col>
+      <Row className="justify-content-center text-center">
+        <Col xs={12} lg={12} style={{ width: "30%" }} className="login-page">
+          <Col xs={12} lg={12}>
+            <img src={loginImg} alt="login" className="w-100 mt-5" />
+          </Col>
+          <Col xs={12} lg={12}>
+            <h3>ادخل كود التسجيل</h3>
+          </Col>
 
-                 <Form.Control  onChange={handleInputChange("Registration_code")}
-                    value={Registration_code}
-                 type="password" maxLength={6} placeholder="ادخل كود التسجيل"  className='w-100 my-5' 
-                  style={{textAlignLast:'start',borderRadius:'20px',backgroundColor:'rgb(249 249 249 / 41%)'}}/>
+          <Form.Control
+            onChange={handleInputChange("Registration_code")}
+            value={Registration_code}
+            type="password"
+            maxLength={6}
+            placeholder="ادخل كود التسجيل"
+            className="w-100 my-5"
+            style={{
+              textAlignLast: "start",
+              borderRadius: "20px",
+              backgroundColor: "rgb(249 249 249 / 41%)",
+            }}
+          />
 
-                <Col xs={12} lg={12}>
-                <Form onSubmit={handleSubmit}>
-      <Form.Check
-        type="radio"
-        label="سمسار"
-        name="radioGroup"
-        value="option1"
-        checked={selectedOption === "option1"}
-        onChange={handleOptionChange}
-      />
-      <Form.Check
-        type="radio"
-        label="مالك"
-        name="radioGroup"
-        value="option2"
-        checked={selectedOption === "option2"}
-        onChange={handleOptionChange}
-      />
-      <Button className='w-100 mt-2' type="submit">تسجيل الدخول</Button>
-    </Form>
-                    {/* style={{backgroundColor:'#547AFF',borderRadius:'20px'}}>تسجيل الدخول</Button> */}
-                </Col>
-
-            </Col>    <Toaster />
-
-            </Row>
+          <Col xs={12} lg={12}>
+            <Form onSubmit={handleSubmit}>
+              <Form.Check
+                type="radio"
+                label="سمسار"
+                name="radioGroup"
+                value="option1"
+                checked={selectedOption === "option1"}
+                onChange={handleOptionChange}
+              />
+              <Form.Check
+                type="radio"
+                label="مالك"
+                name="radioGroup"
+                value="option2"
+                checked={selectedOption === "option2"}
+                onChange={handleOptionChange}
+              />
+              <Button className="w-100 mt-2" type="submit">
+                تسجيل الدخول
+              </Button>
+            </Form>
+            {/* style={{backgroundColor:'#547AFF',borderRadius:'20px'}}>تسجيل الدخول</Button> */}
+          </Col>
+        </Col>{" "}
+        <Toaster />
+      </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
