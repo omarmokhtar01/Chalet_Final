@@ -186,8 +186,8 @@ const ViewChaletOwner = () => {
       setCopiedValue("");
     }, 2000);
   };
-  const startDate = new Date(2024, 2, 24);
-  const endDate = new Date(2024, 5, 1);
+  const startDate = new Date(2024, 4, 1);
+  const endDate = new Date(2024, 7, 1);
   const datesArray = eachDayOfInterval({ start: startDate, end: endDate });
   console.log("jshdduiasjdoip");
   return (

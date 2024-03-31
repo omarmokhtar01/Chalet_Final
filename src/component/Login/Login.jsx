@@ -50,7 +50,6 @@ const Login = () => {
 
   const ownerLocalStorage = JSON.parse(localStorage.getItem("owner"));
 
-  console.log("dhysagbiuy:", ownerLocalStorage.data.id);
   const resOwner = useSelector((state) => state.auth.userOwnerChalet);
   console.log("-------:", resOwner);
 
