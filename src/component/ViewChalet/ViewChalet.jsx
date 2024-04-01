@@ -57,8 +57,8 @@ const ViewChalet = () => {
     setShowModal(false);
   };
 
-  const startDate = new Date(2024, 2, 24); // June 1st, 2024
-  const endDate = new Date(2024, 5, 1); // September 30th, 2024
+  const startDate = new Date(2024, 3, 24); // June 1st, 2024
+  const endDate = new Date(2024, 8, 1); // September 30th, 2024
   const datesArray = eachDayOfInterval({ start: startDate, end: endDate });
 
   const dispatch = useDispatch();
@@ -187,6 +187,33 @@ const ViewChalet = () => {
     setTimeout(() => {
       setCopiedValue("");
     }, 2000);
+  };
+
+  // amr abdelaal update
+  const formatArabicDate = (arabicDateString) => {
+    const parts = arabicDateString.split("/");
+
+    const day = parseInt(parts[0]);
+    const arabicMonth = parts[1];
+
+    const arabicMonths = {
+      يناير: "01",
+      فبراير: "02",
+      مارس: "03",
+      أبريل: "04",
+      مايو: "05",
+      يونيو: "06",
+      يوليو: "07",
+      أغسطس: "08",
+    };
+
+    const month = arabicMonths[arabicMonth];
+
+    const year = new Date().getFullYear();
+
+    const formattedDate = `${month}/${day}/${year}`;
+
+    return formattedDate;
   };
 
   return (
@@ -613,12 +640,15 @@ const ViewChalet = () => {
 
               <Row>
                 {datesArray.map((date, index) => {
+                  const formattedFromDate =
+                    getStatusBook.data.from_day.map(formatArabicDate);
+
                   const formattedDate = format(date, "MM/dd/yyyy");
-                  console.log("------>" + formattedDate);
 
                   const isBooked =
-                    formattedDate >= getStatusBook.data.from_day &&
-                    formattedDate <= getStatusBook.data.To_day;
+                    new Date(formattedDate) >= new Date(formattedFromDate[0]) &&
+                    new Date(formattedDate) <=
+                      new Date(formattedFromDate[formattedFromDate.length - 1]);
 
                   const isToday =
                     format(date, "MM/dd/yyyy") ===

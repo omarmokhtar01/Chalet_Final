@@ -186,10 +186,38 @@ const ViewChaletOwner = () => {
       setCopiedValue("");
     }, 2000);
   };
-  const startDate = new Date(2024, 4, 1);
-  const endDate = new Date(2024, 7, 1);
+  const startDate = new Date(2024, 3, 24);
+  const endDate = new Date(2024, 8, 1);
   const datesArray = eachDayOfInterval({ start: startDate, end: endDate });
   console.log("jshdduiasjdoip");
+
+  // amr abdelaal update
+  const formatArabicDate = (arabicDateString) => {
+    const parts = arabicDateString.split("/");
+
+    const day = parseInt(parts[0]);
+    const arabicMonth = parts[1];
+
+    const arabicMonths = {
+      يناير: "01",
+      فبراير: "02",
+      مارس: "03",
+      أبريل: "04",
+      مايو: "05",
+      يونيو: "06",
+      يوليو: "07",
+      أغسطس: "08",
+    };
+
+    const month = arabicMonths[arabicMonth];
+
+    const year = new Date().getFullYear();
+
+    const formattedDate = `${month}/${day}/${year}`;
+
+    return formattedDate;
+  };
+
   return (
     <>
       <Container>
@@ -604,13 +632,16 @@ const ViewChaletOwner = () => {
               <Row>
                 {datesArray.map((date, index) => {
                   // Check if formattedDate exists in formattedDatesArr
+                  const formattedFromDate =
+                    getStatusBook.data.from_day.map(formatArabicDate);
+
                   const formattedDate = format(date, "MM/dd/yyyy");
-                  console.log("------>" + formattedDate);
 
                   const isBooked =
-                    formattedDate >= getStatusBook.data.from_day &&
-                    formattedDate <= getStatusBook.data.To_day;
-
+                    new Date(formattedDate) >= new Date(formattedFromDate[0]) &&
+                    new Date(formattedDate) <=
+                      new Date(formattedFromDate[formattedFromDate.length - 1]);
+                  console.log("formattedDate");
                   const isToday =
                     format(date, "MM/dd/yyyy") ===
                     format(new Date(), "MM/dd/yyyy");
