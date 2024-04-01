@@ -907,6 +907,22 @@ const ViewChaletOwner = () => {
             onClick={handleSubmit}
             style={{backgroundColor:'#547AFF',color:'white',width:'350px',marginTop:'20px'}}>حجز الأن</Button>
             </Col> */}
+            <Col
+                lg={12}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <Button
+                  href={`/determine-chalet/${id}`}
+                  style={{
+                    backgroundColor: "#547AFF",
+                    color: "white",
+                    width: "350px",
+                    marginTop: "20px",
+                  }}
+                >
+                  حجز الأن
+                </Button>
+              </Col>
             </Row>
           ) : null
         ) : (
