@@ -311,6 +311,8 @@ const ViewChaletOwner = () => {
                           borderRadius: "10px",
                         }}
                       >
+                        {                    localStorage.setItem("img", getStatusBook.data.image_area)
+}
                         تصفح {getStatusBook.data.image_array.slice(3).length}{" "}
                         صور
                       </button>
